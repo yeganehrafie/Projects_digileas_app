@@ -1,7 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
-import BtnClose from '../Buttons/BtnClose';
-import BtnAddCart from '../Buttons/BtnAddCart';
+import BtnClose from '../buttons/BtnClose';
+import BtnAddCart from '../buttons/BtnAddCart';
 import images from "../../../images/hero-4.png";
 
 interface ModalProps {

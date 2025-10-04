@@ -78,6 +78,7 @@ export default {
         xs: "480px",
         default: "1024px",
       },
+
     },
   },
   plugins: [],
