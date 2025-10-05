@@ -5,7 +5,7 @@ import { Swiper as SwiperType } from 'swiper';
 import { Autoplay, EffectFade } from 'swiper/modules';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import '../../animateAos.css';
+import '../../pages/landing/Style/animateAos.css';
 import BtnAddCart from "../../components/common/buttons/BtnAddCart";
 import Img_hero1 from '../../images/hero-1.png';
 import Img_hero3 from '../../images/hero-3.png';

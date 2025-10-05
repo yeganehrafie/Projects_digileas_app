@@ -2,7 +2,6 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 import BtnClose from '../buttons/BtnClose';
 import BtnAddCart from '../buttons/BtnAddCart';
-import images from "../../../images/hero-4.png";
 
 interface ModalProps {
     isOpen: boolean;
@@ -13,9 +12,10 @@ interface ModalProps {
     attributes?: string;
     price?: string;
     price_definition?: string;
+    img?: string;
 }
 
-export default function MyModal({ isOpen, onClose, title, description, categorie, attributes, price, price_definition }: ModalProps) {
+export default function MyModal({ isOpen, onClose, title, description, categorie, attributes, price, img }: ModalProps) {
     return (
         <Transition appear show={isOpen} as={Fragment}>
             <Dialog as="div" className="relative z-50" onClose={onClose}>
@@ -63,7 +63,7 @@ export default function MyModal({ isOpen, onClose, title, description, categorie
                                 <div className='flex flex-col md:flex-row items-center justify-center space-x-4 mt-4'>
                                     <div className="image-product">
                                         <img
-                                            src={images}
+                                            src={img}
                                             alt={title}
                                             className='max-w-sm w-full h-auto'
                                         />
@@ -83,13 +83,12 @@ export default function MyModal({ isOpen, onClose, title, description, categorie
                                         </div>
                                         <div>
                                             <span className=' text-gray-800 font-bold'>قیمت:</span>
-                                            <span className=' text-gray-700 mx-1 font-semibold'>{price_definition}</span>
-                                            <del className=' text-[#FF4545] mx-1 font-semibold'>{price}</del>
+                                            <span className=' text-gray-700 mx-1 font-semibold'>{price}</span>
                                         </div>
 
 
                                         {/* buttons */}
-                                            <BtnAddCart name='افزودن به سبد خرید' />
+                                        <BtnAddCart name='افزودن به سبد خرید' />
                                     </div>
                                 </div>
 
