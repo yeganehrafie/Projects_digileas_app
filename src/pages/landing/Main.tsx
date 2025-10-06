@@ -1,11 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import Header from "./Header";
 import HeroSlider from "./Hero_Slider";
 import CategoriesBox from "./components/CategoriesBox";
-import ProductsDiscount from "./products/ProductsDiscount";
-import ProductsNew from "./products/ProductsNew";
-import ProductsSelling from "./products/ProductsSelling";
+import ProductsDiscountLanding from "./products/ProductsDiscount/ProductsDiscountLanding";
+import ProductsNew from "./products/ProductsNew/ProductsNewLanding";
+import ProductsSelling from "./products/ProductsSelling/ProductsSellingLanding";
 import BtnViewMore from "../../components/common/buttons/BtnViewMore";
 import CustomerCommentBox from "./components/CustomerCommentBox";
+import Bloges from "./blog/BlogesLanding";
+import Footer from "./Footer";
+import BtnScrollTop from "../../components/common/buttons/BtnScrollTop";
 import '../../pages/landing/Style/animateAos.css';
 import Img_baner1 from '../../images/baner-1.webp';
 import Img_baner2 from '../../images/baner-2.webp';
@@ -17,8 +21,11 @@ import { FaHeadphonesSimple } from "react-icons/fa6";
 import { IoWalletOutline } from "react-icons/io5";
 import { PiTruckTrailerBold } from "react-icons/pi";
 import { IoMdSync } from "react-icons/io";
+import { TbLogs } from "react-icons/tb";
 
 const Main = () => {
+
+    const navigate = useNavigate();
 
     const Img_Baners = [
         { id: 1, img: Img_baner1 },
@@ -35,12 +42,12 @@ const Main = () => {
 
     return (
         <main>
-            <div className=" min-h-screen bg-white">
+            <div className="min-h-screen bg-white">
                 <Header />
                 <HeroSlider />
 
                 {/* CategoriesBox */}
-                <section id="CategoriesBox">
+                <section id="categoriesBox">
                     <div className=" px-[10%] mt-10">
                         {/* title */}
                         <div className="title  flex justify-center items-center ">
@@ -52,7 +59,7 @@ const Main = () => {
                     </div>
                 </section>
                 {/* ProductsDiscount */}
-                <section id="ProductsDiscount">
+                <section id="productsDiscount">
                     <div className="flex items-center justify-between px-[10%] mt-20">
                         <div className="title flex items-center">
                             <HiPercentBadge className="text-emerald-500 text-3xl" />
@@ -61,13 +68,13 @@ const Main = () => {
                             </h2>
                         </div>
                         <div className="btn-more">
-                            <BtnViewMore text="مشاهده بیشتر" />
+                            <BtnViewMore onclick={() => navigate("/productsDiscount")} text="مشاهده بیشتر" />
                         </div>
                     </div>
-                    <ProductsDiscount />
+                    <ProductsDiscountLanding />
                 </section>
                 {/* ProductsNew */}
-                <section id="ProductsNew">
+                <section id="productsNew">
                     <div className="flex items-center justify-between px-[10%] mt-10">
                         <div className="title flex items-center">
                             <MdNewReleases className="text-emerald-500 text-3xl" />
@@ -138,12 +145,26 @@ const Main = () => {
                     </div>
                 </section>
                 {/* CustomerCommentBox */}
-                <CustomerCommentBox />
-
-
+                <section id="customerCommentBox">
+                    <CustomerCommentBox />
+                </section>
                 {/* Blogs */}
-
-                {/* Footer */}
+                <section id="blog">
+                    <div className="flex items-center justify-between px-[10%] mt-20">
+                        <div className="title flex items-center">
+                            <TbLogs className="text-emerald-500 text-3xl" />
+                            <h2 className="text-3xl mx-2 text-gray-800 font-semibold">
+                                خواندنی ها
+                            </h2>
+                        </div>
+                        <div className="btn-more">
+                            <BtnViewMore text="مشاهده بیشتر" />
+                        </div>
+                    </div>
+                    <Bloges />
+                </section>
+                <Footer />
+                <BtnScrollTop />
             </div>
         </main>
 

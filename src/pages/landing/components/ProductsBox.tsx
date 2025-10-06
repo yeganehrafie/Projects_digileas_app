@@ -3,6 +3,8 @@ import Raiting from "../../../components/common/rating/Raiting";
 import Modal from "../../../components/common/modal/modal";
 import BtnCart from "../../../components/common/buttons/BtnCart";
 import Tooltip from "../../../components/common/tooltipBox/Tooltip";
+import Loading from "../../../components/common/loading/Loading";
+import type { ProductsBoxProps, Product } from "../../../model/Products";
 import { truncateText } from "../../utils";
 import { FiHeart, FiEye, FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -11,55 +13,6 @@ import { Navigation, Autoplay } from 'swiper/modules';
 
 
 
-export interface ProductPrice {
-    amount: string;
-    offer: number;
-    offer_percent: number;
-    total: number;
-}
-
-export interface ProductImage {
-    url: string;
-    alt: string;
-    is_primary?: boolean;
-}
-
-export interface Product {
-    id: string;
-    name: string;
-    slug: string;
-    product_type: string;
-    is_exists: number;
-    is_price_visible: string;
-    price: ProductPrice;
-    image: ProductImage;
-    is_favorite: boolean;
-    images: ProductImage[] | { [key: string]: ProductImage };
-    created_at: {
-        year: number;
-        month: number;
-        day: number;
-        hour: number;
-        minute: number;
-        second: number;
-        timestamp: number;
-        date: string;
-        time: string;
-        ago: string;
-        iso: string;
-    };
-}
-
-interface ProductsBoxProps {
-    products: Product[];
-    loading?: boolean;
-    onQuickView?: (product: Product) => void;
-    selectedProduct?: Product | null;
-    isModalOpen?: boolean;
-    onCloseModal?: () => void;
-    title?: string;
-    useSwiper?: boolean;
-}
 
 const ProductsBox: React.FC<ProductsBoxProps> = ({
     products,
@@ -161,13 +114,8 @@ const ProductsBox: React.FC<ProductsBoxProps> = ({
 
     if (loading) {
         return (
-            <div className="animate-pulse">
-                {title && <div className="h-8 bg-gray-200 rounded w-1/4 mb-6"></div>}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {[...Array(useSwiper ? 4 : 8)].map((_, index) => (
-                        <div key={index} className="bg-gray-200 rounded-lg h-80"></div>
-                    ))}
-                </div>
+            <div className="px-[10%] mt-10">
+                <Loading />
             </div>
         );
     }

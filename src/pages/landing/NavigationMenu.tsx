@@ -128,7 +128,7 @@ const NavigationMenu: React.FC = () => {
                 },
             ]
         },
-        { name: 'صفحه اصلی', href: '#' },
+        { name: 'صفحه اصلی', href: '/' },
         { name: 'درباره ما', href: '#' },
         { name: 'راهنمای سفارش', href: '#' },
         { name: 'ارتباط با ما', href: '#contact' },

@@ -6,7 +6,7 @@ const Loading: React.FC = () => {
     return (
         <div className=" z-10 flex items-center justify-center ">
             <div className="text-">
-                <ImSpinner6 className="text-5xl text-emerald-500" />
+                <ImSpinner6 className="text-5xl text-emerald-500 animate-spin" />
             </div>
         </div>
     );

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import ProductsBox from "../components/ProductsBox";
-import type { Product } from "../components/ProductsBox";
+import ProductsBox from "../../components/ProductsBox";
+import type { Product } from "../../../../model/Products";
 
-const ProductsNew: React.FC = () => {
+const ProductsNewLanding: React.FC = () => {
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [products, setProducts] = useState<Product[]>([]);
@@ -43,4 +43,4 @@ const ProductsNew: React.FC = () => {
         </div >
     );
 }
-export default ProductsNew;
+export default ProductsNewLanding;
