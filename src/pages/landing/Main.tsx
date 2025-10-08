@@ -3,7 +3,7 @@ import Header from "./Header";
 import HeroSlider from "./Hero_Slider";
 import CategoriesBox from "./components/CategoriesBox";
 import ProductsDiscountLanding from "./products/ProductsDiscount/ProductsDiscountLanding";
-import ProductsNew from "./products/ProductsNew/ProductsNewLanding";
+import ProductsNewLanding from "./products/ProductsNew/ProductsNewLanding";
 import ProductsSelling from "./products/ProductsSelling/ProductsSellingLanding";
 import BtnViewMore from "../../components/common/buttons/BtnViewMore";
 import CustomerCommentBox from "./components/CustomerCommentBox";
@@ -42,13 +42,13 @@ const Main = () => {
 
     return (
         <main>
-            <div className="min-h-screen bg-white">
+            <div className="min-h-screen bg-white ">
                 <Header />
                 <HeroSlider />
 
                 {/* CategoriesBox */}
                 <section id="categoriesBox">
-                    <div className=" px-[10%] mt-10">
+                    <div className=" px-[5%] mt-10">
                         {/* title */}
                         <div className="title  flex justify-center items-center ">
                             <TbCategory2 className="text-emerald-500 text-3xl" />
@@ -60,7 +60,7 @@ const Main = () => {
                 </section>
                 {/* ProductsDiscount */}
                 <section id="productsDiscount">
-                    <div className="flex items-center justify-between px-[10%] mt-20">
+                    <div className="flex items-center justify-between px-[5%] mt-20">
                         <div className="title flex items-center">
                             <HiPercentBadge className="text-emerald-500 text-3xl" />
                             <h2 className="text-3xl mx-2 text-gray-800 font-semibold">
@@ -75,7 +75,7 @@ const Main = () => {
                 </section>
                 {/* ProductsNew */}
                 <section id="productsNew">
-                    <div className="flex items-center justify-between px-[10%] mt-10">
+                    <div className="flex items-center justify-between px-[5%] mt-10">
                         <div className="title flex items-center">
                             <MdNewReleases className="text-emerald-500 text-3xl" />
                             <h2 className="text-3xl mx-2 text-gray-800 font-semibold">
@@ -83,14 +83,14 @@ const Main = () => {
                             </h2>
                         </div>
                         <div className="btn-more">
-                            <BtnViewMore text="مشاهده بیشتر" />
+                            <BtnViewMore onclick={() => navigate("/productsNew")} text="مشاهده بیشتر" />
                         </div>
                     </div>
-                    <ProductsNew />
+                    <ProductsNewLanding />
                 </section>
                 {/* baners */}
                 <section id="baners">
-                    <div className="baners grid grid-cols-1 lg:grid-cols-3 gap-6 px-[10%] mt-10 ">
+                    <div className="baners grid grid-cols-1 lg:grid-cols-3 gap-6 px-[5%] mt-10 ">
                         {Img_Baners.map((baner) => (
                             <div
                                 key={baner.id}
@@ -109,8 +109,8 @@ const Main = () => {
                     </div>
                 </section>
                 {/* ProductsSelling */}
-                <section id="ProductsNew">
-                    <div className="flex items-center justify-between px-[10%] mt-20">
+                <section id="productsSelling">
+                    <div className="flex items-center justify-between px-[5%] mt-20">
                         <div className="title flex items-center">
                             <MdOutlineWhatshot className="text-emerald-500 text-3xl" />
                             <h2 className="text-3xl mx-2 text-gray-800 font-semibold">
@@ -118,14 +118,14 @@ const Main = () => {
                             </h2>
                         </div>
                         <div className="btn-more">
-                            <BtnViewMore text="مشاهده بیشتر" />
+                            <BtnViewMore onclick={() => navigate("/productsSelling")} text="مشاهده بیشتر" />
                         </div>
                     </div>
                     <ProductsSelling />
                 </section>
                 {/* feature-area */}
                 <section id="feature-area">
-                    <div className="feature bg-[#F6F9FC] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-[10%] mt-10">
+                    <div className="feature bg-[#F6F9FC] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-[5%] mt-10">
                         {feature_area.map((fe) => (
                             <div
                                 key={fe.id}
@@ -150,7 +150,7 @@ const Main = () => {
                 </section>
                 {/* Blogs */}
                 <section id="blog">
-                    <div className="flex items-center justify-between px-[10%] mt-20">
+                    <div className="flex items-center justify-between px-[5%] mt-20">
                         <div className="title flex items-center">
                             <TbLogs className="text-emerald-500 text-3xl" />
                             <h2 className="text-3xl mx-2 text-gray-800 font-semibold">
@@ -158,7 +158,7 @@ const Main = () => {
                             </h2>
                         </div>
                         <div className="btn-more">
-                            <BtnViewMore text="مشاهده بیشتر" />
+                            <BtnViewMore onclick={() => navigate("/bloges")} text="مشاهده بیشتر" />
                         </div>
                     </div>
                     <Bloges />

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import type { Blog } from "../../../model/Blog";
 import BlogBox from "../components/BlogBox";
+import { ToastUtils } from "../../../components/common/utils/ToastUtils";
 
 const BlogesLanding: React.FC = () => {
     const [blogs, setBlogs] = useState<Blog[]>([]);
@@ -15,6 +16,8 @@ const BlogesLanding: React.FC = () => {
             if (response.data.ok) {
                 setBlogs(response.data.data.data);
                 setLoading(false);
+            } else {
+                ToastUtils.error("وبلاگی یافت نشد");
             }
         });
     }, []);
@@ -22,7 +25,7 @@ const BlogesLanding: React.FC = () => {
 
 
     return (
-        <div className="px-[10%] mt-10">
+        <div className="px-[5%] mt-10">
             <BlogBox
                 blogs={blogs}
                 loading={loading}

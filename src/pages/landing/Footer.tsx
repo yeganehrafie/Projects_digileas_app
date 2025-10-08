@@ -41,7 +41,7 @@ const Footer: React.FC = () => {
                 </div>
             </div>
             {/* footer */}
-            <div className="footer bg-[#0E2148] px-4 md:px-[10%]">
+            <div className="footer bg-[#0E2148] px-4 md:px-[5%]">
                 <div className="footer-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 py-12">
                     {/* logo && Social-media */}
                     <div className="space-y-4">

@@ -21,6 +21,7 @@ export interface Product {
     price: ProductPrice;
     image: ProductImage;
     is_favorite: boolean;
+    category_id: number;
     images: ProductImage[] | { [key: string]: ProductImage };
     created_at: {
         year: number;

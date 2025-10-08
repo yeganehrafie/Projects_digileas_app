@@ -3,7 +3,6 @@ import Raiting from "../../../components/common/rating/Raiting";
 import Modal from "../../../components/common/modal/modal";
 import BtnCart from "../../../components/common/buttons/BtnCart";
 import Tooltip from "../../../components/common/tooltipBox/Tooltip";
-import Loading from "../../../components/common/loading/Loading";
 import type { ProductsBoxProps, Product } from "../../../model/Products";
 import { truncateText } from "../../utils";
 import { FiHeart, FiEye, FiChevronRight, FiChevronLeft } from "react-icons/fi";
@@ -16,7 +15,6 @@ import { Navigation, Autoplay } from 'swiper/modules';
 
 const ProductsBox: React.FC<ProductsBoxProps> = ({
     products,
-    loading = false,
     onQuickView,
     selectedProduct,
     isModalOpen = false,
@@ -110,15 +108,9 @@ const ProductsBox: React.FC<ProductsBoxProps> = ({
                 </div>
             </div>
         </div>
+
     );
 
-    if (loading) {
-        return (
-            <div className="px-[10%] mt-10">
-                <Loading />
-            </div>
-        );
-    }
 
     return (
         <>

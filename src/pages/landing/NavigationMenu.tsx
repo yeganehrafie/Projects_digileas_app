@@ -8,8 +8,10 @@ interface MenuItem {
     active?: boolean;
     dropdown?: MenuItem[];
 }
-
-const NavigationMenu: React.FC = () => {
+interface NavigationMenuProps {
+    onCategorySelect?: (categorySlug: string) => void;
+}
+const NavigationMenu: React.FC<NavigationMenuProps> = ({ onCategorySelect }) => {
     const [mobileNavActive, setMobileNavActive] = useState<boolean>(false);
     const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
     const [deepDropdowns, setDeepDropdowns] = useState<{ [key: string]: boolean }>({});
@@ -72,58 +74,82 @@ const NavigationMenu: React.FC = () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, [mobileNavActive, activeDropdown, deepDropdowns]);
+    const handleCategoryClick = (categoryName: string) => {
+        if (onCategorySelect) {
+            // تبدیل نام دسته‌بندی به slug
+            const slugMap: { [key: string]: string } = {
+                'سامسونگ': 'سامسونگ',
+                'اپل': 'اپل',
+                'گوشی کار کرده': 'گوشی-کار-کرده'
+            };
 
+            const slug = slugMap[categoryName];
+            if (slug) {
+                onCategorySelect(slug);
+            }
+        }
+        closeAllMenus();
+    };
     const menuItems: MenuItem[] = [
         {
             name: 'همه دسته بندی ها',
             href: '#',
             dropdown: [
                 {
-                    name: 'لپ تاپ و کامپیوتر',
+                    name: 'لپ تاپ ',
                     href: '#',
                     dropdown: [
                         { name: 'ایسوس', href: '#' },
                         { name: 'اچ پی', href: '#' },
+                        { name: 'سامسونگ', href: '#' },
+                        { name: 'ایسر', href: '#' },
                         { name: 'لنوو', href: '#' },
                         { name: 'اپل', href: '#' },
-                        { name: 'سامسونگ', href: '#' },
-                        { name: 'دل', href: '#' },
-                        { name: 'ایسر', href: '#' },
                     ]
                 },
                 {
-                    name: 'موبایل و تبلت',
-                    href: '#',
+                    name: 'گوشی موبایل',
+                    href: "#",
                     dropdown: [
-                        { name: 'سامسونگ', href: '#' },
-                        { name: 'اپل', href: '#' },
-                        { name: 'شیائومی', href: '#' },
-                        { name: 'هوآوی', href: '#' },
-                        { name: 'آنر', href: '#' },
-                        { name: 'نوکیا', href: '#' },
-                        { name: 'گوگل', href: '#' },
+                        { name: 'سامسونگ', href: '/product-category/mobile' },
+                        { name: 'اپل', href: '/product-category/mobile' },
+                        { name: 'گوشی کار کرده', href: '/product-category/mobile' },
                     ]
                 },
                 {
-                    name: 'لوازم الکترونیکی',
+                    name: 'اکسسوری ها',
                     href: '#',
                     dropdown: [
-                        { name: 'هدفون و هندزفری', href: '#' },
-                        { name: 'اسپیکر بلوتوث', href: '#' },
-                        { name: 'پاوربانک', href: '#' },
-                        { name: 'کابل و مبدل', href: '#' },
-                        { name: 'شارژر', href: '#' },
+                        { name: 'ساعت هوشمند اپل', href: '#' },
+                        { name: 'هندزفری اپل', href: '#' },
+                        { name: 'آداپتور اپل', href: '#' },
+                        { name: 'ساعت هوشمند سامسونگ', href: '#' },
+                        { name: 'هندزفری سامسونگ', href: '#' },
                     ]
                 },
                 {
-                    name: 'خانه و آشپزخانه',
+                    name: 'گجت های هوشمند',
                     href: '#',
                     dropdown: [
-                        { name: 'جاروبرقی', href: '#' },
-                        { name: 'مایکروویو', href: '#' },
-                        { name: 'قهوه ساز', href: '#' },
-                        { name: 'اتو', href: '#' },
-                        { name: 'سماور برقی', href: '#' },
+                        { name: 'تصفیه کننده هوا', href: '#' },
+                        { name: 'جارو رباتیک', href: '#' },
+                        { name: 'شیکر شارژی', href: '#' },
+                    ]
+                },
+                {
+                    name: 'قاب گوشی',
+                    href: '#',
+                    dropdown: [
+                        { name: 'قاب گوشی اندروید', href: '#' },
+                        { name: 'قاب گوشی اپل', href: '#' },
+                    ]
+                },
+                {
+                    name: 'سایر موارد ',
+                    href: '#',
+                    dropdown: [
+                        { name: 'کنسول بازی', href: '#' },
+                        { name: 'کولر', href: '#' },
                     ]
                 },
             ]
@@ -145,7 +171,7 @@ const NavigationMenu: React.FC = () => {
                     className={`relative  ${isSubmenu ? '' : 'whitespace-nowrap py-1 px-3 '}`}
                 >
                     {item.dropdown ? (
-                        <div className="relative group">
+                        <div className="relative group ">
                             <button
                                 onClick={(e) => {
                                     e.stopPropagation();
@@ -168,16 +194,16 @@ const NavigationMenu: React.FC = () => {
                                     )}
                                     <span className='text-gray-600 text-md  hover:text-emerald-500 duration-300'>{item.name}</span>
                                 </div>
-                                <FaChevronDown className={`w-3 h-3 transition-transform duration-300
+                                <FaChevronDown className={`w-3 h-3 transition-transform duration-300 
                                  ${(isSubmenu && deepDropdowns[fullItemName]) ||
-                                        (!isSubmenu && activeDropdown === item.name) ? 'rotate-180' : ''
+                                        (!isSubmenu && activeDropdown === item.name) ? 'rotate-180 ' : ''
                                     }`} />
                             </button>
 
                             {/* Dropdown Menu - برای "همه دسته بندی ها" موقعیت متفاوت */}
                             <ul className={`
                                 absolute bg-white rounded-md shadow-lg py-2 min-w-[220px] z-50
-                                transition-all duration-300 ease-in-out text-md px-6
+                                transition-all duration-300 ease-in-out text-md px-6 text-right 
                                 ${isSubmenu ? 'border border-gray-100 right-full top-0' : ''}
                                 ${item.name === 'همه دسته بندی ها'
                                     ? 'left-0 top-full mt-2'
@@ -197,9 +223,9 @@ const NavigationMenu: React.FC = () => {
                             href={item.href}
                             onClick={(e) => {
                                 e.stopPropagation();
-                                closeAllMenus();
+                                handleCategoryClick(item.name);
                             }}
-                            className={`block py-3 text-lg font-medium hover:text-emerald-500 transition-colors 
+                            className={`block py-3 text-lg font-medium hover:text-emerald-500 transition-colors
                                 ${item.active ? 'text-emerald-500' : 'text-gray-600'
                                 }`}
                         >

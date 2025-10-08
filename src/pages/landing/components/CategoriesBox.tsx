@@ -1,21 +1,25 @@
-import { MdOutlineDevices } from "react-icons/md";
 import { IoIosLaptop } from "react-icons/io";
 import { GiTablet } from "react-icons/gi";
-import { SlHome } from "react-icons/sl";
+import { SiEngadget } from "react-icons/si";
+import { GiCooler } from "react-icons/gi";
+import { BsPhone } from "react-icons/bs";
+import { AiOutlineAudio } from "react-icons/ai"
 import "../../../pages/landing/Style/animateAos.css"
 
 const CategoriesBox: React.FC = () => {
     const Categories = [
-        { id: 1, title: "لپ تاپ وکامپیوتر", icon: <IoIosLaptop size={40} />, href: "#1" },
-        { id: 2, title: "موبایل و تبلت", icon: <GiTablet size={40} />, href: "#2" },
-        { id: 3, title: "لوازم الکترونیکی", icon: <MdOutlineDevices size={40} />, href: "#3" },
-        { id: 4, title: "خانه و آشپزخانه", icon: <SlHome size={40} />, href: "#4" },
+        { id: 1, title: "لپ تاپ", icon: <IoIosLaptop size={40} />, href: "#1" },
+        { id: 2, title: "موبایل", icon: <GiTablet size={40} />, href: "/product-category/mobile" },
+        { id: 3, title: "اکسسوری", icon: <AiOutlineAudio size={40} />, href: "#3" },
+        { id: 4, title: "گجت هوشمند", icon: <SiEngadget size={30} />, href: "#4" },
+        { id: 5, title: "کولر ", icon: <GiCooler size={40} />, href: "#5" },
+        { id: 6, title: "قاب گوشی ", icon: <BsPhone size={40} />, href: "#6" },
     ]
 
     return (
         <>
             <div className="categories max-w-full mt-10">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-6 gap-6">
                     {Categories.map((item) => (
                         <a
                             key={item.id}

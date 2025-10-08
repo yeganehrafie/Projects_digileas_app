@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ProductsBox from "../../components/ProductsBox";
+import { ToastUtils } from "../../../../components/common/utils/ToastUtils";
 import type { Product } from "../../../../model/Products";
 
 const ProductsSellingLanding: React.FC = () => {
@@ -17,6 +18,8 @@ const ProductsSellingLanding: React.FC = () => {
             if (response.data.ok) {
                 setProducts(response.data.data.data);
                 setLoading(false);
+            } else {
+                ToastUtils.error("محصولی یافت نشد");
             }
         });
     }, []);
@@ -30,7 +33,7 @@ const ProductsSellingLanding: React.FC = () => {
         setSelectedProduct(null);
     };
     return (
-        <div className="px-[10%] mt-10">
+        <div className="px-[5%] mt-10">
             <ProductsBox
                 products={products}
                 loading={loading}

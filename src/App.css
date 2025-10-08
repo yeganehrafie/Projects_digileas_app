@@ -14,3 +14,27 @@
     font-family: 'Yekan', sans-serif;
 }
 
+.scrollbar-minimal {
+    scrollbar-width: thin;
+    scrollbar-color: #07cb8d #fff;
+}
+
+.scrollbar-minimal::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scrollbar-minimal::-webkit-scrollbar-track {
+    background: #fff;
+    border-radius: 8px;
+}
+
+.scrollbar-minimal::-webkit-scrollbar-thumb {
+    background: #07cb8d;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.scrollbar-minimal::-webkit-scrollbar-thumb:hover {
+    background: #07cb8d;
+    transform: scale(1.1);
+}

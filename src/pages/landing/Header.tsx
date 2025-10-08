@@ -12,7 +12,7 @@ const Header = () => {
             <div className="max-w-full shadow-md shadow-gray-500/50">
                 {/* header-1 */}
                 <div className="header-top-wrapper bg-[#0E2148] text-gray-800
-                      flex items-center justify-between  md:px-[10%] py-3 text-md ">
+                      flex items-center justify-between  md:px-[5%] py-3 text-md ">
                     {/* search */}
                     <div className="header-left w-2/3 px-5 md:w-2/4 ">
                         <Search />
@@ -31,7 +31,7 @@ const Header = () => {
                 {/* header-2 */}
                 <div className="header-buttom-wrapper bg-[#fff] text-gray-800
                       flex items-center justify-between flex-row 
-                       md:px-[10%]  py-4 text-md  space-y-4 md:space-y-0 px-5">
+                       md:px-[5%]  py-4 text-md  space-y-4 md:space-y-0 px-5">
                     {/* logo */}
                     <div className="logo ">
                         <Logo />

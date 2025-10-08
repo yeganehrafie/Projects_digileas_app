@@ -126,7 +126,7 @@ const HeroSlider: React.FC = () => {
                 {slides.map((slide) => (
                     <SwiperSlide key={slide.id}>
                         <div className={`container max-w-full ${slide.bgColor} transition-all duration-1000`}>
-                            <div className="hero_slider flex flex-col md:flex-row items-center justify-around space-y-5 md:space-y-0 p-14">
+                            <div className="hero_slider flex flex-col md:flex-row items-center justify-around space-y-5 md:space-y-0 p-20">
                                 <div className="hero-right space-y-4 tracking-wider text-center md:text-right">
                                     <span
                                         data-animate="fade-up"
@@ -160,32 +160,34 @@ const HeroSlider: React.FC = () => {
                                         alt={slide.title2}
                                     />
                                 </div>
-                                <div className="absolute bottom-4 left-0 flex flex-col mt-20 ">
-                                    <div className="flex-row items-center space-x-4 py-2 ">
+                                <div className="absolute bottom-4 left-0 flex flex-row  px-[12%] ">
+                                    <div className="flex flex-row items-center space-x-4 py-2">
+                                        <div className="swiper-pagination-custom flex items-center mx-3">
+                                            {slides.map((_, index) => (
+                                                <button
+                                                    key={index}
+                                                    onClick={() => swiperRef.current?.slideTo(index)}
+                                                    className={`w-2.5 h-2.5 mx-1 rounded-full transition-colors duration-300 ${activeSlide === index ? 'bg-emerald-500' : 'bg-gray-300 hover:bg-emerald-400'
+                                                        }`}
+                                                />
+                                            ))}
+                                        </div>
                                         <button
                                             onClick={() => swiperRef.current?.slideNext()}
-                                            className="p-4 rounded-full bg-[#fff] hover:bg-emerald-500 transition-colors duration-300 group mx-4"
+                                            className=" p-4 rounded-full bg-[#fff] hover:bg-emerald-500 transition-colors duration-300 group mx-4"
                                         >
                                             <FaChevronRight className="text-gray-600 group-hover:text-white w-4 h-4 group-hover:scale-110 transition-transform" />
                                         </button>
                                         <button
                                             onClick={() => swiperRef.current?.slidePrev()}
-                                            className="p-4 rounded-full bg-[#fff] hover:bg-emerald-500 transition-colors duration-300 group "
+                                            className=" p-4 rounded-full bg-[#fff] hover:bg-emerald-500 transition-colors duration-300 group "
                                         >
                                             <FaChevronLeft className="text-gray-600 group-hover:text-white w-4 h-4 group-hover:scale-110 transition-transform" />
                                         </button>
+
                                     </div>
 
-                                    <div className="swiper-pagination-custom flex items-center mt-3 mr-10">
-                                        {slides.map((_, index) => (
-                                            <button
-                                                key={index}
-                                                onClick={() => swiperRef.current?.slideTo(index)}
-                                                className={`w-3 h-3 mx-1 rounded-full transition-colors duration-300 ${activeSlide === index ? 'bg-emerald-500' : 'bg-gray-300 hover:bg-emerald-400'
-                                                    }`}
-                                            />
-                                        ))}
-                                    </div>
+
                                 </div>
                             </div>
                         </div>

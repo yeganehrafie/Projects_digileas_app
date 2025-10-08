@@ -1,36 +1,140 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import ProductsBox from "../../components/ProductsBox";
 import BtnBack from "../../../../components/common/buttons/BtnBack";
 import type { Product } from "../../../../model/Products";
+import Loading from "../../../../components/common/loading/Loading";
+import { ToastUtils } from "../../../../components/common/utils/ToastUtils";
+import Header from "../../Header";
+import Footer from "../../Footer";
+import BreadCrumb from "../../../../components/common/breadCrumb/BreadCrumb";
+import BtnScrollTop from "../../../../components/common/buttons/BtnScrollTop";
+import Categories from "../../categories/Categories";
 import axios from "axios";
-import { HiPercentBadge } from "react-icons/hi2";
-import { IoMdCheckmark } from "react-icons/io";
-
-/**
- * 
- * چک باکس رو درست کن
- * اسکرولش رو بزار
- *
- * 
- */
 
 const ProductsDiscount: React.FC = () => {
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [products, setProducts] = useState<Product[]>([]);
-    const [loading, setLoading] = useState(true);
+    const loaderRef = useRef<HTMLDivElement>(null);
+    const [hasMore, setHasMore] = useState(true);
+    const [isFetching, setIsFetching] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
 
-    // Axios API 
+
+    const categories = [
+        { id: 1, name: "لپ تاپ", slug: "لپ-تاپ" },
+        { id: 2, name: "اچ پی", slug: "اچ-پی" },
+        { id: 3, name: "ایسر", slug: "ایسر" },
+        { id: 4, name: "ایسوس", slug: "ایسوس" },
+        { id: 5, name: "لنوو", slug: "لنوو" },
+        { id: 6, name: "گوشی موبایل", slug: "گوشی-موبایل" },
+        { id: 7, name: "سامسونگ", slug: "سامسونگ" },
+        { id: 8, name: "اپل", slug: "اپل" },
+        { id: 9, name: "گوشی کار کرده", slug: "گوشی-کار-کرده" },
+        { id: 10, name: "اکسسوری ها", slug: "اکسسوری-ها" },
+        { id: 11, name: "ساعت هوشمند اپل", slug: "اپل-اکسسوری" },
+        { id: 12, name: "هندزفری اپل", slug: "هندزفری-اپل" },
+        { id: 13, name: "هندزفری سامسونگ", slug: "هندزفری-سامسونگ" },
+        { id: 14, name: "ساعت هوشمند سامسونگ", slug: "سامسونگ-اکسسوری" },
+        { id: 15, name: "آداپتور اپل", slug: "کلگی-اپل" },
+        { id: 16, name: "کنسول بازی", slug: "کنسول-بازی" },
+        { id: 17, name: "گجت های هوشمند", slug: "گجت-های-هوشمند" },
+        { id: 18, name: "کولر", slug: "کولر" },
+        { id: 19, name: "قاب گوشی", slug: "قاب-گوشی" },
+    ];
+
     const baseUrl = "https://api.digileas.com/general/products?sort=special_offer";
 
-    useEffect(() => {
-        axios.get(baseUrl).then((response) => {
-            if (response.data.ok) {
-                setProducts(response.data.data.data);
-                setLoading(false);
+    //   دریافت محصولات
+    const fetchProducts = useCallback(async (page: number, append: boolean = false, categorySlug?: string) => {
+        if (isFetching) return;
+
+        setIsFetching(true);
+
+        try {
+            let url = baseUrl;
+
+            // اگر دسته‌بندی انتخاب شده باشد
+            if (categorySlug) {
+                url = `https://api.digileas.com/general/products?category=${encodeURIComponent(categorySlug)}&sort=special_offer`;
             }
-        });
-    }, []);
+
+            const response = await axios.get(`${url}&page=${page}`);
+
+            if (response.data.ok) {
+                const newProducts = response.data.data.data;
+
+                if (append) {
+                    setProducts(prev => [...prev, ...newProducts]);
+                } else {
+                    setProducts(newProducts);
+                }
+
+                // بررسی وجود صفحه بعد
+                const pagination = response.data.data;
+                setHasMore(page < pagination.last_page);
+
+                if (newProducts.length > 0) {
+                    setCurrentPage(page + 1);
+                }
+            }
+        } catch (error) {
+            console.error("Error fetching products:", error);
+            ToastUtils.error("خطا در دریافت محصولات");
+            setHasMore(false);
+        } finally {
+            setIsFetching(false);
+        }
+    }, [isFetching]);
+
+    // وقتی selectedCategories تغییر کرد
+    useEffect(() => {
+        // ریست کردن stateها
+        setProducts([]);
+        setCurrentPage(1);
+        setHasMore(true);
+
+        if (selectedCategories.length === 0) {
+            // اگر هیچ دسته‌بندی انتخاب نشده، همه محصولات را نشان بده
+            fetchProducts(1, false);
+        } else {
+            // اگر دسته‌بندی انتخاب شده، محصولات آن دسته را fetch کن
+            const selectedCategory = categories.find(cat => cat.id === selectedCategories[0]);
+            if (selectedCategory) {
+                fetchProducts(1, false, selectedCategory.slug);
+            }
+        }
+    }, [selectedCategories]);
+
+    // Infinite scroll 
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                const first = entries[0];
+                if (first.isIntersecting && hasMore && !isFetching) {
+                    const selectedCategory = selectedCategories.length > 0
+                        ? categories.find(cat => cat.id === selectedCategories[0])
+                        : null;
+
+                    fetchProducts(currentPage, true, selectedCategory?.slug);
+                }
+            },
+            { threshold: 0.1 }
+        );
+
+        const currentLoader = loaderRef.current;
+        if (currentLoader) {
+            observer.observe(currentLoader);
+        }
+
+        return () => {
+            if (currentLoader) {
+                observer.unobserve(currentLoader);
+            }
+        };
+    }, [hasMore, isFetching, currentPage, selectedCategories]);
+
     const handleQuickView = (product: Product) => {
         setSelectedProduct(product);
         setIsModalOpen(true);
@@ -41,76 +145,77 @@ const ProductsDiscount: React.FC = () => {
         setSelectedProduct(null);
     };
 
-    const categorie = [
-        { id: 1, name: "لپ تاپ و کامپیوتر" },
-        { id: 2, name: "موبایل و تبلت" },
-        { id: 3, name: "لوازم الکترونیک" },
-        { id: 4, name: "خانه و آشچز خانه" },
-    ]
+    const handleCategoryChange = (categoryIds: number[]) => {
+        setSelectedCategories(categoryIds);
+    };
+
     return (
         <>
-            <div className="bg-white px-[5%]">
-                {/* title */}
-                <div className="title flex items-center mt-10 max-w-8xl mx-auto px-4 sm:px-6 py-14 md:py-20">
-                    <HiPercentBadge className="text-emerald-500 text-3xl" />
-                    <h2 className="text-3xl mx-2 text-gray-800 font-semibold">
-                        محصولات تخفیف دار
-                    </h2>
-                </div>
-                {/* back button */}
-                <div className="flex w-full justify-end">
-                    <BtnBack />
-                </div>
-                <div className="flex flex-col md:flex-row gap-6 mt-10">
-                    <div className="box-categories w-full md:w-1/4 p-4 rounded-lg shadow-md overflow-y-auto">
-                        <div className="categories-content">
-                            <div className="title">
-                                <h3 className="text-xl mx-2 text-gray-800 font-semibold">
-                                    دسته بندی ها
-                                </h3>
+            <div className="bg-white ">
+                {/* Header */}
+                <Header />
+                {/* BreadCrumb */}
+                <BreadCrumb
+                    title="لیست محصولات تخفیف دار"
+                    items={[
+                        { label: "صفحه اصلی", type: "home" },
+                        { label: "محصولات تخفیف دار" }
+                    ]}
+                    homePath="/"
+                />
+
+                <div className="px-[5%]">
+                    {/* back button */}
+                    <div className="flex w-full justify-end mt-10">
+                        <BtnBack />
+                    </div>
+                    <div className="flex flex-col md:flex-row gap-6 mt-10">
+                        <div className="box-categories w-full min-h-full  md:w-1/4 p-4 rounded-lg shadow-md
+                          overflow-y-auto max-h-96 scrollbar-minimal">
+                            <div className="categories-content">
+                                <div className="title">
+                                    <h3 className="text-xl mx-2 text-gray-800 font-semibold">
+                                        دسته بندی ها
+                                    </h3>
+                                </div>
+                                <hr className="border-emerald-700 mt-5" />
+                                {/* categories */}
+                                <Categories
+                                    selectedCategories={selectedCategories}
+                                    onCategoryChange={handleCategoryChange}
+                                />
                             </div>
-                            <hr className="border-emerald-700 mt-5" />
-                            {/* <div className="categories flex flex-col text-start space-y-8 mt-5">
-                                {categorie.map((cat) => (
-                                    <div key={cat.id}>
-                                        <input type="checkbox" className="" />
-                                        <span className="text-md font-meduim text-gray-800 mx-2">{cat.name}</span>
-                                    </div>
-                                ))}
+                        </div>
+                        <div className="products w-full md:w-3/4">
+                            <ProductsBox
+                                products={products}
+                                onQuickView={handleQuickView}
+                                selectedProduct={selectedProduct}
+                                isModalOpen={isModalOpen}
+                                onCloseModal={handleCloseModal}
+                                useSwiper={false}
+                            />
 
-                            </div> */}
-                            <div className="categories flex flex-col text-start space-y-8 mt-5">
-                                {categorie.map((cat) => (
-                                    <label key={cat.id} className="flex items-center cursor-pointer">
-                                        {/* چک‌باکس پنهان با peer */}
-                                        <input type="checkbox" className="sr-only peer" />
-
-                                        {/* باکس مربعی سفارشی */}
-                                        <div className="w-5 h-5 flex items-center justify-center border-2 border-gray-300 
-                                         rounded-sm bg-white mr-2 peer-checked:border-emerald-500 transition-colors duration-200">
-                                            <IoMdCheckmark className="text-emerald-500 opacity-0 peer-checked:opacity-100 transition-opacity w-3 h-3" />
-                                        </div>
-
-                                        <span className="text-md font-medium text-gray-800">{cat.name}</span>
-                                    </label>
-                                ))}
+                            {/* Loader برای Infinite Scroll */}
+                            <div
+                                ref={loaderRef}
+                                className="flex justify-center items-center py-6"
+                            >
+                                {isFetching && <Loading />}
+                                {!hasMore && products.length > 0 && (
+                                    <span></span>
+                                )}
                             </div>
                         </div>
                     </div>
-                    <div className="products w-full md:w-3/4">
-                        <ProductsBox
-                            products={products}
-                            loading={loading}
-                            onQuickView={handleQuickView}
-                            selectedProduct={selectedProduct}
-                            isModalOpen={isModalOpen}
-                            onCloseModal={handleCloseModal}
-                            useSwiper={false}
-                        />
-                    </div>
                 </div>
+
+                {/* Footer */}
+                <Footer />
+                <BtnScrollTop />
             </div>
         </>
     );
-}
+};
+
 export default ProductsDiscount;

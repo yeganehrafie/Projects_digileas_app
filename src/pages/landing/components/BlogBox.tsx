@@ -30,13 +30,13 @@ const BlogBox: React.FC<BlogBoxProps> = ({
 
     // Blog Card Component
     const BlogCard = ({ blog }: { blog: Blog }) => (
-        <div className="transition-shadow duration-300 group rounded-lg h-full ">
+        <div className="transition-shadow duration-300 group rounded-lg h-full w-[95%]">
             {blog.image?.url && (
                 <div className="w-full object-cover overflow-hidden rounded-lg ">
                     <img
                         src={blog.image.url}
                         alt={blog.title}
-                        className="w-full h-full object-cover rounded-lg 
+                        className="w-68 h-full object-cover rounded-lg 
                          group-hover:scale-105 transition-transform duration-300"
                     />
                 </div>
@@ -45,11 +45,11 @@ const BlogBox: React.FC<BlogBoxProps> = ({
             <div className="p-4 space-y-4">
                 <div className="flex justify-between items-center mb-2 text-sm font-semibold">
                     <span className="flex items-center">
-                        <FaRegUserCircle className="text-emeral-500 text-xl mx-2" />
+                        <FaRegUserCircle className="text-emerald-500 text-xl mx-2" />
                         <span className="text-gray-700">{blog.author || "نام نویسنده"}</span>
                     </span>
                     <span className="flex items-center">
-                        <MdDateRange className="text-emeral-500 text-xl mx-2" />
+                        <MdDateRange className="text-emerald-500 text-xl mx-2" />
                         <span className="text-gray-700">{formatDate(blog.created_at)}</span>
                     </span>
                 </div>
@@ -68,7 +68,7 @@ const BlogBox: React.FC<BlogBoxProps> = ({
 
     if (loading) {
         return (
-            <div className="px-[10%] mt-10">
+            <div className="px-[5%] mt-10">
                 <Loading />
             </div>
         );
