@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import { useParams, useLocation } from "react-router-dom";
 import ProductsBox from "../../components/ProductsBox";
 import BtnBack from "../../../../components/common/buttons/BtnBack";
 import type { Product } from "../../../../model/Products";
@@ -8,7 +9,7 @@ import Header from "../../Header";
 import Footer from "../../Footer";
 import BreadCrumb from "../../../../components/common/breadCrumb/BreadCrumb";
 import BtnScrollTop from "../../../../components/common/buttons/BtnScrollTop";
-import CategoriesMobile from "../../categories/categoriesMobile";
+import CategoriesMobile from "../../categories/CategoriesMobile";
 import axios from "axios";
 
 const ProductsMobile: React.FC = () => {
@@ -20,7 +21,11 @@ const ProductsMobile: React.FC = () => {
     const [isFetching, setIsFetching] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
+    const [currentCategorySlug, setCurrentCategorySlug] = useState<string>("گوشی-موبایل");
 
+    // دریافت پارامترهای URL
+    const { categorySlug } = useParams<{ categorySlug?: string }>();
+    const location = useLocation();
 
     const categories = [
         { id: 1, name: "گوشی موبایل", slug: "گوشی-موبایل" },
@@ -29,23 +34,28 @@ const ProductsMobile: React.FC = () => {
         { id: 4, name: "گوشی کار کرده", slug: "گوشی-کار-کرده" },
     ];
 
-    const baseUrl = "https://api.digileas.com/general/products?category=گوشی-موبایل";
+    //   پیدا کردن ID دسته‌بندی بر اساس slug // تیدل ایدی به اسلاگ
+    const findCategoryIdBySlug = (slug: string): number | null => {
+        const category = categories.find(cat => cat.slug === slug);
+        return category ? category.id : null;
+    };
 
-    //   دریافت محصولات
-    const fetchProducts = useCallback(async (page: number, append: boolean = false, categorySlug?: string) => {
+    //   پیدا کردن slug دسته‌بندی بر اساس ID //تبدیل اسلاگ به ایدی
+    const findCategorySlugById = (id: number): string | null => {
+        const category = categories.find(cat => cat.id === id);
+        return category ? category.slug : null;
+    };
+
+    // دریافت محصولات
+    const fetchProducts = useCallback(async (page: number, append: boolean = false, categorySlug: string = "گوشی-موبایل") => {
         if (isFetching) return;
 
         setIsFetching(true);
 
         try {
-            let url = baseUrl;
+            const url = `https://api.digileas.com/general/products?category=${encodeURIComponent(categorySlug)}&page=${page}`;
 
-            // اگر دسته‌بندی انتخاب شده باشد
-            if (categorySlug) {
-                url = `https://api.digileas.com/general/products?category=${encodeURIComponent(categorySlug)}`;
-            }
-
-            const response = await axios.get(`${url}&page=${page}`);
+            const response = await axios.get(url);
 
             if (response.data.ok) {
                 const newProducts = response.data.data.data;
@@ -73,21 +83,53 @@ const ProductsMobile: React.FC = () => {
         }
     }, [isFetching]);
 
-    // وقتی selectedCategories تغییر کرد
+    // وقتی categorySlug از URL تغییر کرد
     useEffect(() => {
-        // ریست کردن stateها
-        setProducts([]);
-        setCurrentPage(1);
-        setHasMore(true);
+        if (categorySlug) {
+            // پیدا کردن ID دسته‌بندی از روی slug
+            const categoryId = findCategoryIdBySlug(categorySlug);
+            if (categoryId) {
+                setSelectedCategories([categoryId]);
+            }
+            // تنظیم slug جاری برای API calls
+            setCurrentCategorySlug(categorySlug);
 
-        if (selectedCategories.length === 0) {
-            // اگر هیچ دسته‌بندی انتخاب نشده، همه محصولات را نشان بده
-            fetchProducts(1, false);
+            // ریست کردن stateها و fetch محصولات جدید
+            setProducts([]);
+            setCurrentPage(1);
+            setHasMore(true);
         } else {
-            // اگر دسته‌بندی انتخاب شده، محصولات آن دسته را fetch کن
-            const selectedCategory = categories.find(cat => cat.id === selectedCategories[0]);
-            if (selectedCategory) {
-                fetchProducts(1, false, selectedCategory.slug);
+            setCurrentCategorySlug("گوشی-موبایل");
+            setSelectedCategories([]);
+            setProducts([]);
+            setCurrentPage(1);
+            setHasMore(true);
+            fetchProducts(1, false, "گوشی-موبایل");
+        }
+    }, [categorySlug]);
+
+    // وقتی selectedCategories از طریق کامپوننت دسته‌بندی تغییر کرد
+    useEffect(() => {
+        if (selectedCategories.length > 0) {
+            const selectedCategoryId = selectedCategories[0];
+            const categorySlug = findCategorySlugById(selectedCategoryId);
+
+            if (categorySlug && categorySlug !== currentCategorySlug) {
+                setCurrentCategorySlug(categorySlug);
+
+                // ریست کردن stateها و fetch محصولات جدید
+                setProducts([]);
+                setCurrentPage(1);
+                setHasMore(true);
+                fetchProducts(1, false, categorySlug);
+            }
+        } else {
+            if (currentCategorySlug !== "گوشی-موبایل") {
+                setCurrentCategorySlug("گوشی-موبایل");
+                setProducts([]);
+                setCurrentPage(1);
+                setHasMore(true);
+                fetchProducts(1, false, "گوشی-موبایل");
             }
         }
     }, [selectedCategories]);
@@ -98,11 +140,7 @@ const ProductsMobile: React.FC = () => {
             (entries) => {
                 const first = entries[0];
                 if (first.isIntersecting && hasMore && !isFetching) {
-                    const selectedCategory = selectedCategories.length > 0
-                        ? categories.find(cat => cat.id === selectedCategories[0])
-                        : null;
-
-                    fetchProducts(currentPage, true, selectedCategory?.slug);
+                    fetchProducts(currentPage, true, currentCategorySlug);
                 }
             },
             { threshold: 0.1 }
@@ -118,7 +156,7 @@ const ProductsMobile: React.FC = () => {
                 observer.unobserve(currentLoader);
             }
         };
-    }, [hasMore, isFetching, currentPage, selectedCategories]);
+    }, [hasMore, isFetching, currentPage, currentCategorySlug]);
 
     const handleQuickView = (product: Product) => {
         setSelectedProduct(product);
@@ -134,6 +172,21 @@ const ProductsMobile: React.FC = () => {
         setSelectedCategories(categoryIds);
     };
 
+    // محاسبه دسته‌بندی اولیه برای ارسال به کامپوننت CategoriesMobile
+    const getInitialSelectedCategory = (): number | undefined => {
+        if (categorySlug) {
+            return findCategoryIdBySlug(categorySlug) || undefined;
+        }
+
+        const searchParams = new URLSearchParams(location.search);
+        const categoryParam = searchParams.get('category');
+        if (categoryParam) {
+            return findCategoryIdBySlug(categoryParam) || undefined;
+        }
+
+        return undefined;
+    };
+
     return (
         <>
             <div className="bg-white ">
@@ -141,7 +194,7 @@ const ProductsMobile: React.FC = () => {
                 <Header />
                 {/* BreadCrumb */}
                 <BreadCrumb
-                    title="لیست محصولات موبایل"
+                    title={'لیست محصولات موبایل '}
                     items={[
                         { label: "صفحه اصلی", type: "home" },
                         { label: "محصولات موبایل" }
@@ -168,6 +221,7 @@ const ProductsMobile: React.FC = () => {
                                 <CategoriesMobile
                                     selectedCategories={selectedCategories}
                                     onCategoryChange={handleCategoryChange}
+                                    initialSelectedCategory={getInitialSelectedCategory()}
                                 />
                             </div>
                         </div>
@@ -179,6 +233,7 @@ const ProductsMobile: React.FC = () => {
                                 isModalOpen={isModalOpen}
                                 onCloseModal={handleCloseModal}
                                 useSwiper={false}
+                                isLoading={isFetching}
                             />
 
                             {/* Loader برای Infinite Scroll */}

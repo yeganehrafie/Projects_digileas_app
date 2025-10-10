@@ -74,13 +74,35 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({ onCategorySelect }) => 
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, [mobileNavActive, activeDropdown, deepDropdowns]);
-    const handleCategoryClick = (categoryName: string) => {
+    const handleCategoryClick = (categoryName: string, href: string) => {
+        if (href.startsWith('/product-category/laptop/') || href.startsWith('/product-category/mobile/')) {
+            // اجازه بده لینک معمولی کار کند
+            closeAllMenus();
+            return;
+        }
         if (onCategorySelect) {
             // تبدیل نام دسته‌بندی به slug
             const slugMap: { [key: string]: string } = {
                 'سامسونگ': 'سامسونگ',
                 'اپل': 'اپل',
-                'گوشی کار کرده': 'گوشی-کار-کرده'
+                'گوشی کار کرده': 'گوشی-کار-کرده',
+                'ایسوس': 'ایسوس',
+                'اچ پی': 'اچ پی',
+                'ایسر': 'ایسر',
+                'لنوو': 'لنوو',
+                'اکسسوری-ها': 'اکسسوری-ها',
+                'ساعت هوشمند اپل': ' ساعت هوشمند اپل',
+                'هندزفری اپل': 'هندزفری اپل',
+                'هندزفری سامسونگ': 'هندزفری سامسونگ',
+                'ساعت هوشمند سامسونگ': 'ساعت هوشمند سامسونگ',
+                'آداپتور اپل': 'آداپتور اپل',
+                'گجت-های-هوشمند': 'گجت-های-هوشمند',
+                'جارو-رباتیک': 'جارو-رباتیک',
+                'شیکر-شارژی': 'شیکر-شارژی',
+                'تصفیه-کننده-هوا': 'تصفیه-کننده-هوا',
+                'قاب-گوشی': 'قاب-گوشی',
+                'قاب-گوشی-اپل': 'قاب-گوشی-اپل',
+                'قاب-گوشی-اندروید': 'قاب-گوشی-اندروید',
             };
 
             const slug = slugMap[categoryName];
@@ -96,60 +118,68 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({ onCategorySelect }) => 
             href: '#',
             dropdown: [
                 {
-                    name: 'لپ تاپ ',
+                    name: 'لپ تاپ',
                     href: '#',
                     dropdown: [
-                        { name: 'ایسوس', href: '#' },
-                        { name: 'اچ پی', href: '#' },
-                        { name: 'سامسونگ', href: '#' },
-                        { name: 'ایسر', href: '#' },
-                        { name: 'لنوو', href: '#' },
-                        { name: 'اپل', href: '#' },
+                        { name: 'ایسوس', href: '/product-category/laptop/ایسوس' },
+                        { name: 'اچ پی', href: '/product-category/laptop/اچ-پی' },
+                        { name: 'ایسر', href: '/product-category/laptop/ایسر' },
+                        { name: 'لنوو', href: '/product-category/laptop/لنوو' },
                     ]
                 },
                 {
                     name: 'گوشی موبایل',
                     href: "#",
                     dropdown: [
-                        { name: 'سامسونگ', href: '/product-category/mobile' },
-                        { name: 'اپل', href: '/product-category/mobile' },
-                        { name: 'گوشی کار کرده', href: '/product-category/mobile' },
+                        { name: 'سامسونگ', href: '/product-category/mobile/سامسونگ' },
+                        { name: 'اپل', href: '/product-category/mobile/اپل' },
+                        { name: 'گوشی کار کرده', href: '/product-category/mobile/گوشی-کار-کرده' },
                     ]
                 },
                 {
                     name: 'اکسسوری ها',
                     href: '#',
                     dropdown: [
-                        { name: 'ساعت هوشمند اپل', href: '#' },
-                        { name: 'هندزفری اپل', href: '#' },
-                        { name: 'آداپتور اپل', href: '#' },
-                        { name: 'ساعت هوشمند سامسونگ', href: '#' },
-                        { name: 'هندزفری سامسونگ', href: '#' },
+                        { name: 'ساعت هوشمند اپل', href: '/product-category/accessory/اپل-اکسسوری' },
+                        { name: 'هندزفری اپل', href: '/product-category/accessory/هندزفری-اپل' },
+                        { name: 'هندزفری سامسونگ', href: '/product-category/accessory/هندزفری-سامسونگ' },
+                        { name: 'ساعت هوشمند سامسونگ', href: '/product-category/accessory/سامسونگ-اکسسوری' },
+                        { name: "آداپتور اپل", href: '/product-category/accessory/کلگی-اپل' }
                     ]
                 },
                 {
                     name: 'گجت های هوشمند',
                     href: '#',
                     dropdown: [
-                        { name: 'تصفیه کننده هوا', href: '#' },
-                        { name: 'جارو رباتیک', href: '#' },
-                        { name: 'شیکر شارژی', href: '#' },
+                        { name: 'تصفیه کننده هوا', href: '/product-category/smartGadget/تصفیه-کننده-هوا' },
+                        { name: 'جارو رباتیک', href: '/product-category/smartGadget/جارو-رباتیک' },
+                        { name: 'شیکر شارژی', href: '/product-category/smartGadget/شیکر-شارژی' },
                     ]
                 },
                 {
                     name: 'قاب گوشی',
                     href: '#',
                     dropdown: [
-                        { name: 'قاب گوشی اندروید', href: '#' },
-                        { name: 'قاب گوشی اپل', href: '#' },
+                        { name: 'قاب گوشی اندروید', href: '/product-category/phoneCase/قاب-گوشی-اندروید' },
+                        { name: 'قاب گوشی اپل', href: '/product-category/phoneCase/قاب-گوشی-اپل' },
+                    ]
+                },
+                {
+                    name: 'کنسول بازی',
+                    href: '#',
+                    dropdown: [
+                        { name: 'دسته بازی', href: '/product-category/gameConsole/دسته-بازی' },
+                        { name: 'XBOX', href: '/product-category/gameConsole/XBOX' },
+                        { name: 'PS4', href: '/product-category/gameConsole/PS4' },
+                        { name: 'PS5', href: '/product-category/gameConsole/PS5' },
+
                     ]
                 },
                 {
                     name: 'سایر موارد ',
                     href: '#',
                     dropdown: [
-                        { name: 'کنسول بازی', href: '#' },
-                        { name: 'کولر', href: '#' },
+                        { name: 'کولر', href: '/product-category/productsCooler' },
                     ]
                 },
             ]
@@ -157,7 +187,7 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({ onCategorySelect }) => 
         { name: 'صفحه اصلی', href: '/' },
         { name: 'درباره ما', href: '#' },
         { name: 'راهنمای سفارش', href: '#' },
-        { name: 'ارتباط با ما', href: '#contact' },
+        { name: 'ارتباط با ما', href: '#' },
         { name: 'تخفیفات ویژه', href: '#', active: true },
     ];
 
@@ -223,7 +253,7 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({ onCategorySelect }) => 
                             href={item.href}
                             onClick={(e) => {
                                 e.stopPropagation();
-                                handleCategoryClick(item.name);
+                                handleCategoryClick(item.name, item.href);
                             }}
                             className={`block py-3 text-lg font-medium hover:text-emerald-500 transition-colors
                                 ${item.active ? 'text-emerald-500' : 'text-gray-600'

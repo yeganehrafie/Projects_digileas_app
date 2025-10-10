@@ -36,7 +36,7 @@ const ProductsSellingLanding: React.FC = () => {
         <div className="px-[5%] mt-10">
             <ProductsBox
                 products={products}
-                loading={loading}
+                isLoading={loading}
                 onQuickView={handleQuickView}
                 selectedProduct={selectedProduct}
                 isModalOpen={isModalOpen}

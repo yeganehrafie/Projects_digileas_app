@@ -1,15 +1,15 @@
 import React, { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import Raiting from "../../../components/common/rating/Raiting";
 import Modal from "../../../components/common/modal/modal";
 import BtnCart from "../../../components/common/buttons/BtnCart";
 import Tooltip from "../../../components/common/tooltipBox/Tooltip";
 import type { ProductsBoxProps, Product } from "../../../model/Products";
-import { truncateText } from "../../utils";
+import { truncateText, formatPrice } from "../../utils";
 import { FiHeart, FiEye, FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Swiper as SwiperType } from 'swiper';
 import { Navigation, Autoplay } from 'swiper/modules';
-
 
 
 
@@ -20,21 +20,23 @@ const ProductsBox: React.FC<ProductsBoxProps> = ({
     isModalOpen = false,
     onCloseModal,
     title = "",
-    useSwiper = false
+    useSwiper = false,
+    isLoading = false
 }) => {
     const swiperRef = useRef<SwiperType | null>(null);
 
-    const formatPrice = (price: string | number): string => {
-        const num = typeof price === 'string' ? parseInt(price) : price;
-        return new Intl.NumberFormat('fa-IR').format(num);
-    };
+    const navigate = useNavigate();
+
+
 
     const handleQuickView = (product: Product) => {
         if (onQuickView) {
             onQuickView(product);
         }
     };
-
+    const handleViewDetails = (productId: string) => {
+        navigate(`/products/${productId}`);
+    };
     // ProductBox
     const ProductCard = ({ pro }: { pro: Product }) => (
         <div className="box bg-[#F6F9FC] rounded-md shadow-sm border border-gray-100 p-4 text-gray-800 group  transition-all duration-300 relative h-full">
@@ -48,11 +50,14 @@ const ProductsBox: React.FC<ProductsBoxProps> = ({
             )}
 
             {/* Image Container */}
-            <div className="box-content relative overflow-hidden rounded-lg mb-4">
+            <div
+                onClick={() => handleViewDetails(pro.slug)}
+
+                className="box-content relative overflow-hidden rounded-lg mb-4">
                 <img
                     src={pro.image.url}
                     alt={pro.image.alt || pro.name}
-                    className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500 cursor-pointer"
                 />
 
                 {/* Hover Actions */}
@@ -111,6 +116,25 @@ const ProductsBox: React.FC<ProductsBoxProps> = ({
 
     );
 
+    if (isLoading) {
+        return null;
+    }
+    // Check if products array is empty
+    if (!products || products.length === 0) {
+        return (
+            <div className="products pb-10">
+                <div className="flex flex-col items-center justify-center py-12 text-center">
+                    <div className="text-gray-400 mb-4">
+                        <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2M4 13h2m8-8V4a1 1 0 00-1-1h-2a1 1 0 00-1 1v1M9 7h6" />
+                        </svg>
+                    </div>
+                    <h3 className="text-lg font-medium text-gray-700 mb-2">اطلاعاتی برای نمایش وجود ندارد</h3>
+                    <p className="text-gray-600 text-sm">هیچ محصولی در این بخش یافت نشد.</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <>

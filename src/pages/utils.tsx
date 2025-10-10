@@ -6,3 +6,9 @@ export const truncateText = (text: string, wordLimit: number): string => {
     ? text
     : words.slice(0, wordLimit).join(" ") + "...";
 };
+
+/* فرمت قیمت*/
+export const formatPrice = (price: string | number): string => {
+  const num = typeof price === 'string' ? parseInt(price) : price;
+  return new Intl.NumberFormat('fa-IR').format(num);
+};

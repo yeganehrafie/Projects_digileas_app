@@ -191,6 +191,7 @@ const ProductsSelling: React.FC = () => {
                                 isModalOpen={isModalOpen}
                                 onCloseModal={handleCloseModal}
                                 useSwiper={false}
+                                isLoading={isFetching}
                             />
 
                             {/* Loader برای Infinite Scroll */}

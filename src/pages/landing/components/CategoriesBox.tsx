@@ -8,12 +8,12 @@ import "../../../pages/landing/Style/animateAos.css"
 
 const CategoriesBox: React.FC = () => {
     const Categories = [
-        { id: 1, title: "لپ تاپ", icon: <IoIosLaptop size={40} />, href: "#1" },
+        { id: 1, title: "لپ تاپ", icon: <IoIosLaptop size={40} />, href: "/product-category/laptop/" },
         { id: 2, title: "موبایل", icon: <GiTablet size={40} />, href: "/product-category/mobile" },
-        { id: 3, title: "اکسسوری", icon: <AiOutlineAudio size={40} />, href: "#3" },
-        { id: 4, title: "گجت هوشمند", icon: <SiEngadget size={30} />, href: "#4" },
-        { id: 5, title: "کولر ", icon: <GiCooler size={40} />, href: "#5" },
-        { id: 6, title: "قاب گوشی ", icon: <BsPhone size={40} />, href: "#6" },
+        { id: 3, title: "اکسسوری", icon: <AiOutlineAudio size={40} />, href: "/product-category/laptop" },
+        { id: 4, title: "گجت هوشمند", icon: <SiEngadget size={30} />, href: "/product-category/smartGadget" },
+        { id: 5, title: "کولر ", icon: <GiCooler size={40} />, href: "/product-category/productsCooler" },
+        { id: 6, title: "قاب گوشی ", icon: <BsPhone size={40} />, href: "/product-category/phoneCase/" },
     ]
 
     return (

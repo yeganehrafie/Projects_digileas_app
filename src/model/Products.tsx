@@ -10,6 +10,29 @@ export interface ProductImage {
     alt: string;
     is_primary?: boolean;
 }
+interface MainAttribute {
+    id: string;
+    title: string;
+    value: string;
+}
+interface Image {
+    url: string;
+    alt: string;
+}
+export interface ProductFeatureDetails {
+    price: number;
+    offer: number;
+    final_price: number;
+    is_available: boolean;
+    description: string;
+    categories: { title: string; slug: string }[];
+    notify_status: boolean;
+    introduction_time: string; // زمان معرفی
+    product_type: string;
+    model: string;
+    main_attributes: MainAttribute[];
+    images: Image[];
+}
 
 export interface Product {
     id: string;
@@ -36,11 +59,12 @@ export interface Product {
         ago: string;
         iso: string;
     };
+    feature_details: ProductFeatureDetails;
 }
 
 export interface ProductsBoxProps {
     products: Product[];
-    loading?: boolean;
+    isLoading?: boolean;
     onQuickView?: (product: Product) => void;
     selectedProduct?: Product | null;
     isModalOpen?: boolean;

@@ -15,7 +15,7 @@ interface CategoriesProps {
     initialSelectedCategory?: number;
 }
 
-const CategoriesMobile: React.FC<CategoriesProps> = ({
+const CategoriesPhoneCase: React.FC<CategoriesProps> = ({
     selectedCategories,
     onCategoryChange,
     initialSelectedCategory
@@ -23,10 +23,9 @@ const CategoriesMobile: React.FC<CategoriesProps> = ({
     const [expandedCategories, setExpandedCategories] = useState<number[]>([1]);
 
     const categories: Category[] = [
-        { id: 1, name: "گوشی موبایل", slug: "گوشی-موبایل", hasChildren: true },
-        { id: 2, name: "سامسونگ", slug: "سامسونگ", parentId: 1 },
-        { id: 3, name: "اپل", slug: "اپل", parentId: 1 },
-        { id: 4, name: "گوشی کار کرده", slug: "گوشی-کار-کرده", parentId: 1 },
+        { id: 1, name: "قاب گوشی", slug: "قاب-گوشی", hasChildren: true },
+        { id: 2, name: "قاب گوشی اندروید", slug: "قاب-گوشی-اندروید", parentId: 1 },
+        { id: 3, name: "قاب گوشی اپل", slug: "قاب-گوشی-اپل", parentId: 1 },
     ];
 
     const toggleCategory = (categoryId: number) => {
@@ -147,4 +146,4 @@ const CategoriesMobile: React.FC<CategoriesProps> = ({
     );
 };
 
-export default CategoriesMobile;
+export default CategoriesPhoneCase;

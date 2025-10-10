@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import { useParams, useLocation } from "react-router-dom";
 import ProductsBox from "../../components/ProductsBox";
 import BtnBack from "../../../../components/common/buttons/BtnBack";
 import type { Product } from "../../../../model/Products";
@@ -8,10 +9,10 @@ import Header from "../../Header";
 import Footer from "../../Footer";
 import BreadCrumb from "../../../../components/common/breadCrumb/BreadCrumb";
 import BtnScrollTop from "../../../../components/common/buttons/BtnScrollTop";
-import Categories from "../../categories/Categories";
+import CategoriesLaptop from "../../categories/CategoriesLaptop";
 import axios from "axios";
 
-const ProductsNew: React.FC = () => {
+const ProductsLaptop: React.FC = () => {
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [products, setProducts] = useState<Product[]>([]);
@@ -20,46 +21,43 @@ const ProductsNew: React.FC = () => {
     const [isFetching, setIsFetching] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
+    const [currentCategorySlug, setCurrentCategorySlug] = useState<string>("لپ-تاپ");
+
+    // دریافت پارامترهای URL
+    const { categorySlug } = useParams<{ categorySlug?: string }>();
+    const location = useLocation();
+
     const categories = [
         { id: 1, name: "لپ تاپ", slug: "لپ-تاپ" },
         { id: 2, name: "اچ پی", slug: "اچ-پی" },
         { id: 3, name: "ایسر", slug: "ایسر" },
         { id: 4, name: "ایسوس", slug: "ایسوس" },
         { id: 5, name: "لنوو", slug: "لنوو" },
-        { id: 6, name: "گوشی موبایل", slug: "گوشی-موبایل" },
-        { id: 7, name: "سامسونگ", slug: "سامسونگ" },
-        { id: 8, name: "اپل", slug: "اپل" },
-        { id: 9, name: "گوشی کار کرده", slug: "گوشی-کار-کرده" },
-        { id: 10, name: "اکسسوری ها", slug: "اکسسوری-ها" },
-        { id: 11, name: "ساعت هوشمند اپل", slug: "اپل-اکسسوری" },
-        { id: 12, name: "هندزفری اپل", slug: "هندزفری-اپل" },
-        { id: 13, name: "هندزفری سامسونگ", slug: "هندزفری-سامسونگ" },
-        { id: 14, name: "ساعت هوشمند سامسونگ", slug: "سامسونگ-اکسسوری" },
-        { id: 15, name: "آداپتور اپل", slug: "کلگی-اپل" },
-        { id: 16, name: "کنسول بازی", slug: "کنسول-بازی" },
-        { id: 17, name: "گجت های هوشمند", slug: "گجت-های-هوشمند" },
-        { id: 18, name: "کولر", slug: "کولر" },
-        { id: 19, name: "قاب گوشی", slug: "قاب-گوشی" },
+
     ];
 
-    // Axios API 
-    const baseUrl = "https://api.digileas.com/general/products?sort=new";
+    //   پیدا کردن ID دسته‌بندی بر اساس slug // تیدل ایدی به اسلاگ
+    const findCategoryIdBySlug = (slug: string): number | null => {
+        const category = categories.find(cat => cat.slug === slug);
+        return category ? category.id : null;
+    };
 
-    //   دریافت محصولات
-    const fetchProducts = useCallback(async (page: number, append: boolean = false, categorySlug?: string) => {
+    //   پیدا کردن slug دسته‌بندی بر اساس ID //تبدیل اسلاگ به ایدی
+    const findCategorySlugById = (id: number): string | null => {
+        const category = categories.find(cat => cat.id === id);
+        return category ? category.slug : null;
+    };
+
+    // دریافت محصولات
+    const fetchProducts = useCallback(async (page: number, append: boolean = false, categorySlug: string = "لپ-تاپ") => {
         if (isFetching) return;
 
         setIsFetching(true);
 
         try {
-            let url = baseUrl;
+            const url = `https://api.digileas.com/general/products?category=${encodeURIComponent(categorySlug)}&page=${page}`;
 
-            // اگر دسته‌بندی انتخاب شده باشد
-            if (categorySlug) {
-                url = `https://api.digileas.com/general/products?category=${encodeURIComponent(categorySlug)}&sort=new`;
-            }
-
-            const response = await axios.get(`${url}&page=${page}`);
+            const response = await axios.get(url);
 
             if (response.data.ok) {
                 const newProducts = response.data.data.data;
@@ -87,36 +85,64 @@ const ProductsNew: React.FC = () => {
         }
     }, [isFetching]);
 
-    // وقتی selectedCategories تغییر کرد
+    // وقتی categorySlug از URL تغییر کرد
     useEffect(() => {
-        // ریست کردن stateها
-        setProducts([]);
-        setCurrentPage(1);
-        setHasMore(true);
+        if (categorySlug) {
+            // پیدا کردن ID دسته‌بندی از روی slug
+            const categoryId = findCategoryIdBySlug(categorySlug);
+            if (categoryId) {
+                setSelectedCategories([categoryId]);
+            }
+            // تنظیم slug جاری برای API calls
+            setCurrentCategorySlug(categorySlug);
 
-        if (selectedCategories.length === 0) {
-            // اگر هیچ دسته‌بندی انتخاب نشده، همه محصولات را نشان بده
-            fetchProducts(1, false);
+            // ریست کردن stateها و fetch محصولات جدید
+            setProducts([]);
+            setCurrentPage(1);
+            setHasMore(true);
         } else {
-            // اگر دسته‌بندی انتخاب شده، محصولات آن دسته را fetch کن
-            const selectedCategory = categories.find(cat => cat.id === selectedCategories[0]);
-            if (selectedCategory) {
-                fetchProducts(1, false, selectedCategory.slug);
+            setCurrentCategorySlug("لپ-تاپ");
+            setSelectedCategories([]);
+            setProducts([]);
+            setCurrentPage(1);
+            setHasMore(true);
+            fetchProducts(1, false, "لپ-تاپ");
+        }
+    }, [categorySlug]);
+
+    // وقتی selectedCategories از طریق کامپوننت دسته‌بندی تغییر کرد
+    useEffect(() => {
+        if (selectedCategories.length > 0) {
+            const selectedCategoryId = selectedCategories[0];
+            const categorySlug = findCategorySlugById(selectedCategoryId);
+
+            if (categorySlug && categorySlug !== currentCategorySlug) {
+                setCurrentCategorySlug(categorySlug);
+
+                // ریست کردن stateها و fetch محصولات جدید
+                setProducts([]);
+                setCurrentPage(1);
+                setHasMore(true);
+                fetchProducts(1, false, categorySlug);
+            }
+        } else {
+            if (currentCategorySlug !== "لپ-تاپ") {
+                setCurrentCategorySlug("لپ-تاپ");
+                setProducts([]);
+                setCurrentPage(1);
+                setHasMore(true);
+                fetchProducts(1, false, "لپ-تاپ");
             }
         }
     }, [selectedCategories]);
 
-    //infinite scroll 
+    // Infinite scroll 
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
                 const first = entries[0];
                 if (first.isIntersecting && hasMore && !isFetching) {
-                    const selectedCategory = selectedCategories.length > 0
-                        ? categories.find(cat => cat.id === selectedCategories[0])
-                        : null;
-
-                    fetchProducts(currentPage, true, selectedCategory?.slug);
+                    fetchProducts(currentPage, true, currentCategorySlug);
                 }
             },
             { threshold: 0.1 }
@@ -132,7 +158,7 @@ const ProductsNew: React.FC = () => {
                 observer.unobserve(currentLoader);
             }
         };
-    }, [hasMore, isFetching, currentPage, selectedCategories, fetchProducts]);
+    }, [hasMore, isFetching, currentPage, currentCategorySlug]);
 
     const handleQuickView = (product: Product) => {
         setSelectedProduct(product);
@@ -147,6 +173,22 @@ const ProductsNew: React.FC = () => {
     const handleCategoryChange = (categoryIds: number[]) => {
         setSelectedCategories(categoryIds);
     };
+
+    // محاسبه دسته‌بندی اولیه برای ارسال به کامپوننت CategoriesMobile
+    const getInitialSelectedCategory = (): number | undefined => {
+        if (categorySlug) {
+            return findCategoryIdBySlug(categorySlug) || undefined;
+        }
+
+        const searchParams = new URLSearchParams(location.search);
+        const categoryParam = searchParams.get('category');
+        if (categoryParam) {
+            return findCategoryIdBySlug(categoryParam) || undefined;
+        }
+
+        return undefined;
+    };
+
     return (
         <>
             <div className="bg-white ">
@@ -154,10 +196,10 @@ const ProductsNew: React.FC = () => {
                 <Header />
                 {/* BreadCrumb */}
                 <BreadCrumb
-                    title="لیست محصولات جدید  "
+                    title={'لیست محصولات لپ تاپ '}
                     items={[
                         { label: "صفحه اصلی", type: "home" },
-                        { label: " محصولات جدید " }
+                        { label: "محصولات لپ تاپ" }
                     ]}
                     homePath="/"
                 />
@@ -168,7 +210,8 @@ const ProductsNew: React.FC = () => {
                         <BtnBack />
                     </div>
                     <div className="flex flex-col md:flex-row gap-6 mt-10">
-                        <div className="box-categories w-full min-h-full  md:w-1/4 p-4 rounded-lg shadow-md max-h-96 overflow-y-auto scrollbar-minimal">
+                        <div className="box-categories w-full min-h-full  md:w-1/4 p-4 rounded-lg shadow-md
+                          overflow-y-auto max-h-96 scrollbar-minimal">
                             <div className="categories-content">
                                 <div className="title">
                                     <h3 className="text-xl mx-2 text-gray-800 font-semibold">
@@ -177,9 +220,10 @@ const ProductsNew: React.FC = () => {
                                 </div>
                                 <hr className="border-emerald-700 mt-5" />
                                 {/* categories */}
-                                <Categories
+                                <CategoriesLaptop
                                     selectedCategories={selectedCategories}
                                     onCategoryChange={handleCategoryChange}
+                                    initialSelectedCategory={getInitialSelectedCategory()}
                                 />
                             </div>
                         </div>
@@ -211,10 +255,9 @@ const ProductsNew: React.FC = () => {
                 {/* Footer */}
                 <Footer />
                 <BtnScrollTop />
-
             </div>
         </>
     );
 };
 
-export default ProductsNew;
+export default ProductsLaptop;
