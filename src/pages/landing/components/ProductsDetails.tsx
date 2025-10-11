@@ -13,6 +13,8 @@ import Raiting from "../../../components/common/rating/Raiting";
 import Counter from "../../../components/common/counter/Counter";
 import BtnAddCart from "../../../components/common/buttons/BtnAddCart";
 import Tooltip from "../../../components/common/tooltipBox/Tooltip";
+import CustomerCommentDetails from "./CustomerCommentDetails";
+import FormComment from "./FormComment";
 import { FiHeart } from "react-icons/fi";
 import { FaTelegramPlane } from "react-icons/fa";
 import { RiWhatsappFill } from "react-icons/ri";
@@ -134,15 +136,6 @@ const ProductsDetails: React.FC = () => {
                                 )}
                             </div>
 
-                            <div className="categorie">
-                                {product.feature_details.categories?.map((category, index) => (
-                                    <div key={index}>
-                                        <span className="text-gray-800 font-medium">دسته بندی:</span>
-                                        <span className="text-gray-800 font-medium">{category.slug}/</span>
-                                        <span className="text-gray-800 font-medium">{category.title}</span>
-                                    </div>
-                                ))}
-                            </div>
                             <div className="description">
                                 <p className="text-gray-600 text-justify text-md">
                                     لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
@@ -170,7 +163,7 @@ const ProductsDetails: React.FC = () => {
                             <hr className="border-emerald-200 mt-5" />
 
                             {/* Social-media  */}
-                            <div className="Social-media flex flex-row items-center justify-end gap-3">
+                            <div className="Social-media flex flex-row items-center justify-start gap-3">
                                 <span className="text-gray-800">اشتراک گذاری:</span>
                                 <FaTelegramPlane className="h-10 w-10 md:h-12 md:w-12 rounded-full text-gray-400 border border-gray-300 p-2 md:p-3  hover:text-emerald-500 duration-500 hover:shadow-md hover:shadow-emerald-500/30 cursor-pointer" />
                                 <RiWhatsappFill className="h-10 w-10 md:h-12 md:w-12 rounded-full text-gray-400 border border-gray-300 p-2 md:p-3  hover:text-emerald-500 duration-500 hover:shadow-md hover:shadow-emerald-500/30  cursor-pointer" />
@@ -182,7 +175,7 @@ const ProductsDetails: React.FC = () => {
 
                     {/* تب‌ها: توضیحات، ویژگی‌ها و دیدگاه‌ها */}
                     <div className="mt-10">
-                        <div className="tabs flex items-center border-b gap-6 text-xl text-gray-800 font-medium">
+                        <div className="tabs flex items-center border-b border-emerald-200 gap-6 text-xl text-gray-800 font-medium">
                             <button
                                 className={`tab-button ${activeTab === "description" ? "active border-b-2 border-emerald-500" : ""}`}
                                 onClick={() => setActiveTab("description")}
@@ -208,19 +201,32 @@ const ProductsDetails: React.FC = () => {
                                 <div className="description-content">
                                     <p className="text-gray-600 text-justify text-md">
                                         {product.feature_details.description}
-                                        توضیحات
+                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
                                     </p>
                                 </div>
                             )}
                             {activeTab === "features" && (
                                 <div className="features-content">
                                     <span>{product.feature_details.product_type}</span>
+
+                                    <p className="text-gray-600 text-justify text-md">
+                                        انواع مختلفی از معابر لورم آپسیوم وجود دارد، اما اکثریت به نوعی دچار تغییر شده اند، با شوخی تزریقی، یا کلمات تصادفی که حتی کمی باورپذیر به نظر نرسید اگر می خواهید از یک پاساژ لورم استفاده کنید ایپسوم، باید مطمئن باشید که هیچ چیز شرم آور در این وسط پنهان نشده است متن تمام ژنراتورهای لورم اپسیوم در اینترنت تمایل به تکرار از پیش تعریف شده دارند قطعات در صورت لزوم، این را به اولین مولد واقعی در اینترنت تبدیل می کند.
+
+                                        انواع مختلفی از معابر لورم آپسیوم وجود دارد، اما اکثریت به نوعی دچار تغییر شده اند، با شوخی تزریقی، یا کلمات تصادفی که حتی کمی باورپذیر به نظر نرسید اگر می خواهید از یک پاساژ لورم استفاده کنید ایپسوم، باید مطمئن باشید که هیچ چیز شرم آور در این وسط پنهان نشده است متن تمام ژنراتورهای لورم اپسیوم در اینترنت تمایل به تکرار از پیش تعریف شده دارند قطعات در صورت لزوم، این را به اولین مولد واقعی در اینترنت تبدیل می کند.
+                                    </p>
+                                    <p className="text-gray-600 text-justify text-md mt-5">
+                                        انواع مختلفی از معابر لورم آپسیوم وجود دارد، اما اکثریت به نوعی دچار تغییر شده اند، با شوخی تزریقی، یا کلمات تصادفی که حتی کمی باورپذیر به نظر نرسید اگر می خواهید از یک پاساژ لورم استفاده کنید ایپسوم، باید مطمئن باشید که هیچ چیز شرم آور در این وسط پنهان نشده است متن تمام ژنراتورهای لورم اپسیوم در اینترنت تمایل به تکرار از پیش تعریف شده دارند قطعات در صورت لزوم، این را به اولین مولد واقعی در اینترنت تبدیل می کند.
+
+                                        انواع مختلفی از معابر لورم آپسیوم وجود دارد، اما اکثریت به نوعی دچار تغییر شده اند، با شوخی تزریقی، یا کلمات تصادفی که حتی کمی باورپذیر به نظر نرسید اگر می خواهید از یک پاساژ لورم استفاده کنید ایپسوم، باید مطمئن باشید که هیچ چیز شرم آور در این وسط پنهان نشده است متن تمام ژنراتورهای لورم اپسیوم در اینترنت تمایل به تکرار از پیش تعریف شده دارند قطعات در صورت لزوم، این را به اولین مولد واقعی در اینترنت تبدیل می کند.
+                                    </p>
                                 </div>
                             )}
                             {activeTab === "reviews" && (
-                                <div className="reviews-content">
-                                    <p className="text-gray-600">دیدگاه‌های کاربران در اینجا نمایش داده می‌شود.</p>
-                                </div>
+                                <>
+                                    <CustomerCommentDetails />
+                                    <FormComment />
+                                </>
+
                             )}
                         </div>
                     </div>

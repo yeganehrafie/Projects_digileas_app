@@ -19,19 +19,23 @@ interface Image {
     url: string;
     alt: string;
 }
+interface categorys {
+    title: string;
+    slug: string;
+}
 export interface ProductFeatureDetails {
     price: number;
     offer: number;
     final_price: number;
     is_available: boolean;
     description: string;
-    categories: { title: string; slug: string }[];
     notify_status: boolean;
     introduction_time: string; // زمان معرفی
     product_type: string;
     model: string;
     main_attributes: MainAttribute[];
     images: Image[];
+    categories: categorys[];
 }
 
 export interface Product {
