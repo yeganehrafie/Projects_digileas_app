@@ -9,6 +9,7 @@ import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Swiper as SwiperType } from 'swiper';
 import { Navigation, Autoplay } from 'swiper/modules';
+import { useNavigate } from "react-router-dom";
 
 interface BlogBoxProps {
     blogs: Blog[];
@@ -22,22 +23,26 @@ const BlogBox: React.FC<BlogBoxProps> = ({
     useSwiper = false
 }) => {
     const swiperRef = useRef<SwiperType | null>(null);
-
+    const navigate = useNavigate();
     // فرمت تاریخ
     const formatDate = (date: { year: number; month: number; day: number }): string => {
         return `${date.year}/${date.month}/${date.day}`;
     };
-
+    const handleViewDetails = (articlesId: string) => {
+        navigate(`/articles/${articlesId}`);
+    };
     // Blog Card Component
     const BlogCard = ({ blog }: { blog: Blog }) => (
         <div className="transition-shadow duration-300 group rounded-lg h-full w-[95%]">
             {blog.image?.url && (
-                <div className="w-full object-cover overflow-hidden rounded-lg ">
+                <div
+                    onClick={() => handleViewDetails(blog.slug)}
+                    className="w-full object-cover overflow-hidden rounded-lg ">
                     <img
                         src={blog.image.url}
                         alt={blog.title}
                         className="w-68 h-full object-cover rounded-lg 
-                         group-hover:scale-105 transition-transform duration-300"
+                         group-hover:scale-105 transition-transform duration-300 cursor-pointer"
                     />
                 </div>
             )}
@@ -146,7 +151,6 @@ const BlogBox: React.FC<BlogBoxProps> = ({
                     )
                 ) : (
                     <div className="col-span-full flex justify-center items-center h-40">
-                        <div className="text-lg">محتوایی یافت نشد</div>
                     </div>
                 )}
             </div>

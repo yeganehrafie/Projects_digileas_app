@@ -50,11 +50,9 @@ const ProductsBox: React.FC<ProductsBoxProps> = ({
             )}
 
             {/* Image Container */}
-            <div
-                onClick={() => handleViewDetails(pro.slug)}
-
-                className="box-content relative overflow-hidden rounded-lg mb-4">
+            <div className="box-content relative overflow-hidden rounded-lg mb-4">
                 <img
+                    onClick={() => handleViewDetails(pro.slug)}
                     src={pro.image.url}
                     alt={pro.image.alt || pro.name}
                     className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500 cursor-pointer"

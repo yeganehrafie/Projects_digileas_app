@@ -185,10 +185,10 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({ onCategorySelect }) => 
             ]
         },
         { name: 'صفحه اصلی', href: '/' },
-        { name: 'درباره ما', href: '#' },
-        { name: 'راهنمای سفارش', href: '#' },
-        { name: 'ارتباط با ما', href: '#' },
-        { name: 'تخفیفات ویژه', href: '#', active: true },
+        { name: 'درباره ما', href: '/about' },
+        { name: 'راهنمای سفارش', href: '/guide' },
+        { name: 'ارتباط با ما', href: '/contact-us' },
+        { name: 'تخفیفات ویژه', href: '/productsDiscount', active: true },
     ];
 
     const renderMenuItems = (items: MenuItem[], isSubmenu: boolean = false, parentName?: string): React.ReactElement[] => {

@@ -158,7 +158,7 @@ const Main = () => {
                             </h2>
                         </div>
                         <div className="btn-more">
-                            <BtnViewMore onclick={() => navigate("/bloges")} text="مشاهده بیشتر" />
+                            <BtnViewMore onclick={() => navigate("/articles")} text="مشاهده بیشتر" />
                         </div>
                     </div>
                     <Bloges />

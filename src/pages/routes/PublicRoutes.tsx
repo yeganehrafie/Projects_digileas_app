@@ -12,6 +12,10 @@ import ProductsPhoneCase from "../landing/products/product-category/ProductsPhon
 import ProductsGameConsole from "../landing/products/product-category/ProductsGameConsole";
 import ProductsCooler from "../landing/products/product-category/ProductsCooler";
 import ProductsDetails from "../landing/components/ProductsDetails";
+import BlogDetails from "../landing/components/BlogDetails";
+import About from "../landing/about";
+import Guide from "../landing/Guide";
+import Contact from "../landing/Contact";
 export default function PublicRoutes() {
     return (
         <Routes>
@@ -27,10 +31,14 @@ export default function PublicRoutes() {
             <Route path="/product-category/phoneCase/:categorySlug?" element={<ProductsPhoneCase />} />
             <Route path="/product-category/gameConsole/:categorySlug?" element={<ProductsGameConsole />} />
             <Route path="/product-category/productsCooler" element={<ProductsCooler />} />
-
             <Route path="/products/:slug" element={<ProductsDetails />} />
 
-            <Route path="/bloges" element={<Bloges />} />
+            <Route path="/articles/:slug" element={<BlogDetails />} />
+            <Route path="/articles" element={<Bloges />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/guide" element={<Guide />} />
+            <Route path="/contact-us" element={<Contact />} />
+
 
         </Routes>
     );
