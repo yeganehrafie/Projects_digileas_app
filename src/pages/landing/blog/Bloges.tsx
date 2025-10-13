@@ -21,7 +21,7 @@ const Bloges: React.FC = () => {
     // Axios API 
     const baseUrl = "https://api.digileas.com/general/articles";
 
-    const fetchProducts = useCallback(async (page: number, append: boolean = false) => {
+    const fetchBlogs = useCallback(async (page: number, append: boolean = false) => {
         if (isFetching || !hasMore) return;
 
         setIsFetching(true);
@@ -30,15 +30,15 @@ const Bloges: React.FC = () => {
             const response = await axios.get(`${baseUrl}?page=${page}`);
 
             if (response.data.ok) {
-                const newProducts = response.data.data.data;
+                const newBlogs = response.data.data.data;
 
                 if (append) {
-                    setBlogs(prev => [...prev, ...newProducts]);
+                    setBlogs(prev => [...prev, ...newBlogs]);
                 } else {
-                    setBlogs(newProducts);
+                    setBlogs(newBlogs);
                 }
-                setHasMore(newProducts.length > 0);
-                if (newProducts.length > 0) {
+                setHasMore(newBlogs.length > 0);
+                if (newBlogs.length > 0) {
                     setCurrentPage(page + 1);
                 }
             }
@@ -52,7 +52,7 @@ const Bloges: React.FC = () => {
     }, [isFetching, hasMore, baseUrl]);
 
     useEffect(() => {
-        fetchProducts(1, false);
+        fetchBlogs(1, false);
     }, []);
 
     //infinite scroll
@@ -61,7 +61,7 @@ const Bloges: React.FC = () => {
             (entries) => {
                 const first = entries[0];
                 if (first.isIntersecting && hasMore && !isFetching) {
-                    fetchProducts(currentPage, true);
+                    fetchBlogs(currentPage, true);
                 }
             },
             { threshold: 0.1 }
@@ -77,7 +77,7 @@ const Bloges: React.FC = () => {
                 observer.unobserve(currentLoader);
             }
         };
-    }, [hasMore, isFetching, currentPage, fetchProducts]);
+    }, [hasMore, isFetching, currentPage, fetchBlogs]);
 
 
 

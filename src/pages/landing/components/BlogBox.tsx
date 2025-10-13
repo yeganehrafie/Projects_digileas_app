@@ -66,7 +66,9 @@ const BlogBox: React.FC<BlogBoxProps> = ({
                 <p className="text-gray-600  text-md font-medium line-clamp-3 text-justify">
                     {truncateText(blog.content, 25)}
                 </p>
-                <BtnBloges name="بیشتر بخوانید" />
+                <BtnBloges
+                    onClick={() => handleViewDetails(blog.slug)}
+                    name="بیشتر بخوانید" />
             </div>
         </div>
     );

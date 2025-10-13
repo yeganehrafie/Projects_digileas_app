@@ -1,12 +1,26 @@
-// import { Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import type { User } from "../../model/User";
 import Logo from "../../components/common/logo/Logo";
 import Search from "../../components/common/search/Search";
 import NavigationMenu from "./NavigationMenu";
 import { FaRegUser } from "react-icons/fa";
 import { MdOutlineShoppingCart } from "react-icons/md";
-
+import AppContext from "../../context/AppContext ";
 
 const Header = () => {
+    const { user, currentUser } = useContext(AppContext);
+    const [localUser, setLocalUser] = useState<User | null>(null);
+
+    useEffect(() => {
+        const userData = localStorage.getItem("currentUser");
+        if (userData) {
+            setLocalUser(JSON.parse(userData));
+        }
+    }, []);
+
+    const loggedInUser = currentUser || user || localUser;
+
     return (
         <header className="header">
             <div className="max-w-full shadow-md shadow-gray-500/50">
@@ -18,14 +32,20 @@ const Header = () => {
                         <Search />
                     </div>
                     <div className="header-right text-gray-100 flex flex-col md:flex-row items-center space-y-4 md:space-y-0">
-                        <div className="profile cursor-pointer mx-2 flex items-center md:border-l md:border-emerald-800 border-b-0 border-t-0 border-r-0">
+                        <Link
+                            to="/login"
+                            className="profile cursor-pointer mx-2 flex items-center md:border-l md:border-emerald-800 border-b-0 border-t-0 border-r-0">
                             <span><FaRegUser className="text-[#3be8aeff] " /></span>
-                            <span className="mx-2 hover:text-[#3be8aeff] duration-500">حساب</span>
-                        </div>
-                        <div className="cart cursor-pointer flex items-center">
+                            <span className="mx-2 hover:text-[#3be8aeff] duration-500">
+                                {loggedInUser?.username || 'ورود / ثبت نام'}
+                            </span>
+                        </Link>
+                        <Link
+                            to="/user/cart"
+                            className="cart cursor-pointer flex items-center">
                             <span><MdOutlineShoppingCart className="text-[#3be8aeff] " /></span>
                             <span className="mx-2 hover:text-[#3be8aeff] duration-500">سبد خرید</span>
-                        </div>
+                        </Link>
                     </div>
                 </div>
                 {/* header-2 */}

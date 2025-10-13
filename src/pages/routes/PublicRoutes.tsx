@@ -13,9 +13,12 @@ import ProductsGameConsole from "../landing/products/product-category/ProductsGa
 import ProductsCooler from "../landing/products/product-category/ProductsCooler";
 import ProductsDetails from "../landing/components/ProductsDetails";
 import BlogDetails from "../landing/components/BlogDetails";
-import About from "../landing/about";
+import About from "../landing/About";
 import Guide from "../landing/Guide";
 import Contact from "../landing/Contact";
+import Login from "../verify/Login";
+import Signup from "../verify/Signup";
+
 export default function PublicRoutes() {
     return (
         <Routes>
@@ -38,6 +41,9 @@ export default function PublicRoutes() {
             <Route path="/about" element={<About />} />
             <Route path="/guide" element={<Guide />} />
             <Route path="/contact-us" element={<Contact />} />
+
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
 
 
         </Routes>

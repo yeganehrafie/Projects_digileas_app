@@ -74,9 +74,9 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({ onCategorySelect }) => 
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, [mobileNavActive, activeDropdown, deepDropdowns]);
+
     const handleCategoryClick = (categoryName: string, href: string) => {
         if (href.startsWith('/product-category/laptop/') || href.startsWith('/product-category/mobile/')) {
-            // اجازه بده لینک معمولی کار کند
             closeAllMenus();
             return;
         }
@@ -294,7 +294,9 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({ onCategorySelect }) => 
             </button>
 
             {/* Mobile Menu */}
-            <div className={`fixed inset-0 bg-black bg-opacity-60 transition-opacity duration-300 z-40 ${mobileNavActive ? 'opacity-100 visible' : 'opacity-0 invisible'} xl:hidden`}>
+            <div
+                onClick={closeAllMenus} 
+                className={`fixed inset-0 bg-black bg-opacity-60 transition-opacity duration-300 z-40 ${mobileNavActive ? 'opacity-100 visible' : 'opacity-0 invisible'} xl:hidden`}>
                 <ul
                     className={`absolute top-16 left-4 right-4 bottom-4 bg-white rounded-lg p-4 overflow-y-auto transition-transform duration-300 z-50 ${mobileNavActive ? 'translate-y-0' : '-translate-y-4'}`}
                     onClick={(e) => e.stopPropagation()}
