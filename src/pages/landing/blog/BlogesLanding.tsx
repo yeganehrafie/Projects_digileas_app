@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import type { Blog } from "../../../model/Blog";
 import BlogBox from "../components/BlogBox";
-import { ToastUtils } from "../../../components/common/utils/ToastUtils";
+import { ToastUtils } from "../../../components/common/toast/ToastUtils";
 
 const BlogesLanding: React.FC = () => {
     const [blogs, setBlogs] = useState<Blog[]>([]);

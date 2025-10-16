@@ -2,11 +2,12 @@ import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Raiting from "../../../components/common/rating/Raiting";
 import Modal from "../../../components/common/modal/modal";
-import BtnCart from "../../../components/common/buttons/BtnCart";
+import BtnBasket from "../../../components/common/buttons/BtnBasket";
 import Tooltip from "../../../components/common/tooltipBox/Tooltip";
 import type { ProductsBoxProps, Product } from "../../../model/Products";
-import { truncateText, formatPrice } from "../../utils";
+import { truncateText, formatPrice, addToFavorites, addToBasket } from "../../utils";
 import { FiHeart, FiEye, FiChevronRight, FiChevronLeft } from "react-icons/fi";
+import { IoIosClose } from "react-icons/io";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Swiper as SwiperType } from 'swiper';
 import { Navigation, Autoplay } from 'swiper/modules';
@@ -21,7 +22,9 @@ const ProductsBox: React.FC<ProductsBoxProps> = ({
     onCloseModal,
     title = "",
     useSwiper = false,
-    isLoading = false
+    isLoading = false,
+    isFavoritePage = false,
+    onRemoveFromFavorites,
 }) => {
     const swiperRef = useRef<SwiperType | null>(null);
 
@@ -37,9 +40,12 @@ const ProductsBox: React.FC<ProductsBoxProps> = ({
     const handleViewDetails = (productId: string) => {
         navigate(`/products/${productId}`);
     };
+
+
     // ProductBox
     const ProductCard = ({ pro }: { pro: Product }) => (
         <div className="box bg-[#F6F9FC] rounded-md shadow-sm border border-gray-100 p-4 text-gray-800 group  transition-all duration-300 relative h-full">
+
             {/* Discount Label */}
             {pro.price.offer_percent > 0 && (
                 <div className="MuiChip-label absolute top-3 left-0 mx-2 z-10">
@@ -68,12 +74,25 @@ const ProductsBox: React.FC<ProductsBoxProps> = ({
                             <FiEye size={18} />
                         </button>
                     </Tooltip>
-
-                    <Tooltip text="افزودن به علاقه مندی ها">
-                        <button className="bg-[#8493CA] text-white p-3 rounded-full shadow-md hover:bg-emerald-500 transition-colors duration-300">
-                            <FiHeart size={18} />
-                        </button>
-                    </Tooltip>
+                    {!isFavoritePage && (
+                        <Tooltip text="افزودن به علاقه مندی ها">
+                            <button
+                                onClick={() => addToFavorites(pro)}
+                                className="bg-[#8493CA] text-white p-3 rounded-full shadow-md hover:bg-emerald-500 transition-colors duration-300">
+                                <FiHeart size={18} />
+                            </button>
+                        </Tooltip>
+                    )}
+                    {isFavoritePage && (
+                        <Tooltip text="حذف از علاقه مندی ها">
+                            <button
+                                onClick={() => onRemoveFromFavorites?.(pro.id)}
+                                className="bg-[#8493CA] text-white p-3 rounded-full shadow-md hover:bg-emerald-500 transition-colors duration-300"
+                            >
+                                <IoIosClose className="font-bold" size={18} />
+                            </button>
+                        </Tooltip>
+                    )}
                 </div>
             </div>
 
@@ -107,7 +126,7 @@ const ProductsBox: React.FC<ProductsBoxProps> = ({
                 </div>
 
                 <div className="flex justify-end">
-                    <BtnCart />
+                    <BtnBasket onclick={() => addToBasket(pro)} />
                 </div>
             </div>
         </div>
@@ -133,6 +152,7 @@ const ProductsBox: React.FC<ProductsBoxProps> = ({
             </div>
         );
     }
+
 
     return (
         <>
@@ -215,6 +235,7 @@ const ProductsBox: React.FC<ProductsBoxProps> = ({
                 <Modal
                     isOpen={isModalOpen || false}
                     onClose={onCloseModal || (() => { })}
+                    onAddBasket={() => addToBasket(selectedProduct)}
                     title={selectedProduct.name}
                     description={selectedProduct.name}
                     categorie="الکترونیک"

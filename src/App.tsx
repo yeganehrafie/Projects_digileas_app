@@ -28,10 +28,10 @@ function App() {
         <Route
           path="/user/*"
           element={
-            <LandingLayout>
+            <DashboardLayout>
               <UserRoutes />
               <ToastContainer />
-            </LandingLayout>
+            </DashboardLayout>
           }
         />
 

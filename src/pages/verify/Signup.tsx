@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import BtnLogin from "../../components/common/buttons/BtnLogin";
 import AppContext from "../../context/AppContext ";
 import type { User } from "../../model/User";
-import { ToastUtils } from "../../components/common/utils/ToastUtils";
+import { ToastUtils } from "../../components/common/toast/ToastUtils";
 
 const Signup: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -172,7 +172,7 @@ const Signup: React.FC = () => {
         if (roleId === 0) {
             navigate("/admin/dashboard");
         } else if (roleId === 1) {
-            navigate("/user/profile");
+            navigate("/user/profile/edite");
         } else {
             navigate("/");
         }

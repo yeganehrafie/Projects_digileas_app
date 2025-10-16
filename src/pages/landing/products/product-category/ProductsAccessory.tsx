@@ -4,10 +4,8 @@ import ProductsBox from "../../components/ProductsBox";
 import BtnBack from "../../../../components/common/buttons/BtnBack";
 import type { Product } from "../../../../model/Products";
 import Loading from "../../../../components/common/loading/Loading";
-import { ToastUtils } from "../../../../components/common/utils/ToastUtils";
-import Header from "../../Header";
-import Footer from "../../Footer";
-import BreadCrumb from "../../../../components/common/breadCrumb/BreadCrumb";
+import { ToastUtils } from "../../../../components/common/toast/ToastUtils";
+import BreadCrumb from "../../../../components/landingLayout/breadCrumb/BreadCrumb";
 import BtnScrollTop from "../../../../components/common/buttons/BtnScrollTop";
 import CategoriesAccessory from "../../categories/CategoriesAccessory";
 import axios from "axios";
@@ -193,8 +191,6 @@ const ProductsAccessory: React.FC = () => {
     return (
         <>
             <div className="bg-white ">
-                {/* Header */}
-                <Header />
                 {/* BreadCrumb */}
                 <BreadCrumb
                     title={'لیست محصولات اکسسوری  '}
@@ -252,9 +248,6 @@ const ProductsAccessory: React.FC = () => {
                         </div>
                     </div>
                 </div>
-
-                {/* Footer */}
-                <Footer />
                 <BtnScrollTop />
             </div>
         </>

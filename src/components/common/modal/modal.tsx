@@ -13,9 +13,10 @@ interface ModalProps {
     price?: string;
     price_definition?: string;
     img?: string;
+    onAddBasket?: () => void;
 }
 
-export default function MyModal({ isOpen, onClose, title, description, categorie, attributes, price, img }: ModalProps) {
+export default function MyModal({ isOpen, onClose, title, description, categorie, attributes, price, img, onAddBasket }: ModalProps) {
     return (
         <Transition appear show={isOpen} as={Fragment}>
             <Dialog as="div" className="relative z-50" onClose={onClose}>
@@ -88,7 +89,9 @@ export default function MyModal({ isOpen, onClose, title, description, categorie
 
 
                                         {/* buttons */}
-                                        <BtnAddCart name='افزودن به سبد خرید' />
+                                        <BtnAddCart
+                                            onclick={onAddBasket}
+                                            name='افزودن به سبد خرید' />
                                     </div>
                                 </div>
 

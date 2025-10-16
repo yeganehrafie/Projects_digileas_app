@@ -3,11 +3,8 @@ import BlogBox from "../components/BlogBox";
 import BtnBack from "../../../components/common/buttons/BtnBack";
 import type { Blog } from "../../../model/Blog";
 import Loading from "../../../components/common/loading/Loading";
-import { ToastUtils } from "../../../components/common/utils/ToastUtils";
-import Header from "../Header";
-import Footer from "../Footer";
-import BreadCrumb from "../../../components/common/breadCrumb/BreadCrumb";
-import BtnScrollTop from "../../../components/common/buttons/BtnScrollTop";
+import { ToastUtils } from "../../../components/common/toast/ToastUtils";
+import BreadCrumb from "../../../components/landingLayout/breadCrumb/BreadCrumb";
 import axios from "axios";
 
 const Bloges: React.FC = () => {
@@ -87,8 +84,7 @@ const Bloges: React.FC = () => {
     return (
         <>
             <div className="bg-white ">
-                {/* Header */}
-                <Header />
+
                 {/* BreadCrumb */}
                 <BreadCrumb
                     title="لیست خواندنی ها"
@@ -126,9 +122,6 @@ const Bloges: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Footer */}
-                <Footer />
-                <BtnScrollTop />
             </div>
         </>
     );

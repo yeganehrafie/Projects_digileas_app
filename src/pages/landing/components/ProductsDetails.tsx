@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import Header from "../Header";
-import Footer from "../Footer";
 import BtnScrollTop from "../../../components/common/buttons/BtnScrollTop";
-import BreadCrumb from "../../../components/common/breadCrumb/BreadCrumb";
+import BreadCrumb from "../../../components/landingLayout/breadCrumb/BreadCrumb";
 import type { Product } from "../../../model/Products";
 import axios from "axios";
 import Loading from "../../../components/common/loading/Loading";
-import { ToastUtils } from "../../../components/common/utils/ToastUtils";
-import { formatPrice } from "../../utils";
+import { ToastUtils } from "../../../components/common/toast/ToastUtils";
+import { formatPrice, addToBasket, addToFavorites } from "../../utils";
 import Raiting from "../../../components/common/rating/Raiting";
-import Counter from "../../../components/common/counter/Counter";
 import BtnAddCart from "../../../components/common/buttons/BtnAddCart";
 import Tooltip from "../../../components/common/tooltipBox/Tooltip";
 import CustomerCommentDetails from "./CustomerCommentDetails";
@@ -82,7 +79,6 @@ const ProductsDetails: React.FC = () => {
     return (
         <>
             <div className="bg-white">
-                <Header />
                 <BreadCrumb
                     title="جزییات محصول"
                     items={[
@@ -142,34 +138,34 @@ const ProductsDetails: React.FC = () => {
                                 </p>
                             </div>
 
+                            <hr className="border-emerald-200 mt-5" />
+
                             <div className="flex  items-center justify-between gap-5 mt-5">
-                                <div className="counter">
-                                    <span className="text-gray-800 mx-1">تعداد:</span>
-                                    <Counter />
-                                </div>
                                 <div className="flex items-center gap-5">
                                     <div className="button">
-                                        <BtnAddCart name="افزودن به سبد خرید" />
+                                        <BtnAddCart
+                                            onclick={() => addToBasket(product)}
+                                            name="افزودن به سبد خرید" />
                                     </div>
                                     <div className="FiHeart">
                                         <Tooltip text="افزودن به علاقه مندی ها">
-                                            <button className="bg-white text-emerald-500 p-4 border border-gray-300 rounded-full hover:text-[#FF3F33] ">
+                                            <button
+                                                onClick={() => addToFavorites(product)}
+                                                className="bg-white text-emerald-500 p-4 border border-gray-300 rounded-full hover:text-[#FF3F33] ">
                                                 <FiHeart size={18} />
                                             </button>
                                         </Tooltip>
                                     </div>
                                 </div>
-                            </div>
-                            <hr className="border-emerald-200 mt-5" />
+                                {/* Social-media  */}
+                                <div className="Social-media flex flex-row items-center justify-start gap-3">
+                                    <span className="text-gray-800">اشتراک گذاری:</span>
+                                    <FaTelegramPlane className="h-10 w-10 md:h-12 md:w-12 rounded-full text-gray-400 border border-gray-300 p-2 md:p-3  hover:text-emerald-500 duration-500 hover:shadow-md hover:shadow-emerald-500/30 cursor-pointer" />
+                                    <RiWhatsappFill className="h-10 w-10 md:h-12 md:w-12 rounded-full text-gray-400 border border-gray-300 p-2 md:p-3  hover:text-emerald-500 duration-500 hover:shadow-md hover:shadow-emerald-500/30  cursor-pointer" />
+                                    <AiFillInstagram className="h-10 w-10 md:h-12 md:w-12 rounded-full text-gray-400 border border-gray-300 p-2 md:p-3  hover:text-emerald-500 duration-500 hover:shadow-md hover:shadow-emerald-500/30  cursor-pointer" />
+                                </div>
 
-                            {/* Social-media  */}
-                            <div className="Social-media flex flex-row items-center justify-start gap-3">
-                                <span className="text-gray-800">اشتراک گذاری:</span>
-                                <FaTelegramPlane className="h-10 w-10 md:h-12 md:w-12 rounded-full text-gray-400 border border-gray-300 p-2 md:p-3  hover:text-emerald-500 duration-500 hover:shadow-md hover:shadow-emerald-500/30 cursor-pointer" />
-                                <RiWhatsappFill className="h-10 w-10 md:h-12 md:w-12 rounded-full text-gray-400 border border-gray-300 p-2 md:p-3  hover:text-emerald-500 duration-500 hover:shadow-md hover:shadow-emerald-500/30  cursor-pointer" />
-                                <AiFillInstagram className="h-10 w-10 md:h-12 md:w-12 rounded-full text-gray-400 border border-gray-300 p-2 md:p-3  hover:text-emerald-500 duration-500 hover:shadow-md hover:shadow-emerald-500/30  cursor-pointer" />
                             </div>
-
                         </div>
                     </div>
 
@@ -233,7 +229,6 @@ const ProductsDetails: React.FC = () => {
 
                 </div>
 
-                <Footer />
                 <BtnScrollTop />
 
             </div>

@@ -62,4 +62,6 @@ export interface ProductsBoxProps {
     onCloseModal?: () => void;
     title?: string;
     useSwiper?: boolean;
+    isFavoritePage?: boolean;
+    onRemoveFromFavorites?: (productId: string) => void;
 }

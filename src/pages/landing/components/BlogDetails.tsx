@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import Header from "../Header";
-import Footer from "../Footer";
-import BreadCrumb from "../../../components/common/breadCrumb/BreadCrumb";
+import BreadCrumb from "../../../components/landingLayout/breadCrumb/BreadCrumb";
 import type { Blog } from "../../../model/Blog";
-import { ToastUtils } from "../../../components/common/utils/ToastUtils";
+import { ToastUtils } from "../../../components/common/toast/ToastUtils";
 import Loading from "../../../components/common/loading/Loading";
 import CustomerCommentDetails from "./CustomerCommentDetails";
 import FormComment from "./FormComment";
@@ -59,7 +57,6 @@ const BlogDetails: React.FC = () => {
 
     return (
         <div className="bg-white ">
-            <Header />
             <BreadCrumb
                 title="جزییات خواندنی ها"
                 items={[
@@ -111,7 +108,6 @@ const BlogDetails: React.FC = () => {
                 </div>
             )}
 
-            <Footer />
         </div>
     );
 };

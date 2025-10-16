@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import type { User } from "../../model/User";
-import Cart from "../landing/basket/Basket";
-import Profile from "../user/Profile";
+import Profile from "../user/profile/Edite";
+import Dashboard from "../user/Dashboard";
 export default function UserRoutes() {
     const currentUser = JSON.parse(localStorage.getItem("currentUser") || "null") as User;
     const navigate = useNavigate();
@@ -12,10 +12,11 @@ export default function UserRoutes() {
             navigate("/login");
         }
     }, [currentUser, navigate]);
+
     return (
         <Routes>
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/cart" element={<Cart />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/profile/edite" element={<Profile />} />
         </Routes>
     );
 }

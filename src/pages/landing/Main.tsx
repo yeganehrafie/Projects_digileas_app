@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import Header from "./Header";
 import HeroSlider from "./Hero_Slider";
 import CategoriesBox from "./components/CategoriesBox";
 import ProductsDiscountLanding from "./products/ProductsDiscount/ProductsDiscountLanding";
@@ -8,8 +7,6 @@ import ProductsSelling from "./products/ProductsSelling/ProductsSellingLanding";
 import BtnViewMore from "../../components/common/buttons/BtnViewMore";
 import CustomerCommentBox from "./components/CustomerCommentBox";
 import Bloges from "./blog/BlogesLanding";
-import Footer from "./Footer";
-import BtnScrollTop from "../../components/common/buttons/BtnScrollTop";
 import '../../pages/landing/Style/animateAos.css';
 import Img_baner1 from '../../images/baner-1.webp';
 import Img_baner2 from '../../images/baner-2.webp';
@@ -43,7 +40,6 @@ const Main = () => {
     return (
         <main>
             <div className="min-h-screen bg-white ">
-                <Header />
                 <HeroSlider />
 
                 {/* CategoriesBox */}
@@ -163,8 +159,6 @@ const Main = () => {
                     </div>
                     <Bloges />
                 </section>
-                <Footer />
-                <BtnScrollTop />
             </div>
         </main>
 

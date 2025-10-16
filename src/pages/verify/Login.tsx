@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import BtnLogin from "../../components/common/buttons/BtnLogin";
 import AppContext from "../../context/AppContext ";
 import type { User } from "../../model/User";
-import { ToastUtils } from "../../components/common/utils/ToastUtils";
+import { ToastUtils } from "../../components/common/toast/ToastUtils";
 
 const Login: React.FC = () => {
     const [phoneNumber, setPhoneNumber] = useState<string>("");
@@ -36,7 +36,7 @@ const Login: React.FC = () => {
             setUser(adminUser);
             setCurrentUser(adminUser);
             localStorage.setItem("currentUser", JSON.stringify(adminUser));
-            ToastUtils.success(`کاربر ${user} به فروشگاه دیجی لیزخوش آمدید`);
+            ToastUtils.success(`کاربر ${user?.username} به فروشگاه دیجی لیزخوش آمدید`);
             redirectUserByRole(adminUser);
             return;
         }
@@ -71,7 +71,7 @@ const Login: React.FC = () => {
         if (roleId === 0) {
             navigate("/admin/dashboard");
         } else if (roleId === 1) {
-            navigate("/user/profile");
+            navigate("/user/profile/edite");
         } else {
             navigate("/");
         }

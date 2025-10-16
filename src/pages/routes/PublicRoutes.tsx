@@ -18,7 +18,8 @@ import Guide from "../landing/Guide";
 import Contact from "../landing/Contact";
 import Login from "../verify/Login";
 import Signup from "../verify/Signup";
-
+import Basket from "../landing/basket/Basket";
+import Favorites from "../landing/favorites/Favorites";
 export default function PublicRoutes() {
     return (
         <Routes>
@@ -44,6 +45,9 @@ export default function PublicRoutes() {
 
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+
+            <Route path="/basket" element={<Basket />} />
+            <Route path="/favorites" element={<Favorites />} />
 
 
         </Routes>

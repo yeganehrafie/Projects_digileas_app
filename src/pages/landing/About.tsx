@@ -1,13 +1,11 @@
 import React from "react";
-import BreadCrumb from "../../components/common/breadCrumb/BreadCrumb";
-import Header from "./Header";
-import Footer from "./Footer";
+import BreadCrumb from "../../components/landingLayout/breadCrumb/BreadCrumb";
 import ImgAbout from '../../images/aboutImage.Dc_q44NF.webp';
 
 const About: React.FC = () => {
     return (
         <>
-            <Header />
+
             <BreadCrumb
                 title="درباره ما"
                 items={[
@@ -71,7 +69,7 @@ const About: React.FC = () => {
                 </div>
 
             </div>
-            <Footer />
+
         </>
     );
 }

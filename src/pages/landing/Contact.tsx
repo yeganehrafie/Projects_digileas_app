@@ -1,7 +1,5 @@
 import React from "react";
-import Header from "./Header";
-import Footer from "./Footer";
-import BreadCrumb from "../../components/common/breadCrumb/BreadCrumb";
+import BreadCrumb from "../../components/landingLayout/breadCrumb/BreadCrumb";
 import BtnSend from "../../components/common/buttons/BtnSend";
 import { FaHeadphonesSimple } from "react-icons/fa6";
 import { FaTelegramPlane } from "react-icons/fa";
@@ -56,7 +54,6 @@ const Contact: React.FC = () => {
 
     return (
         <>
-            <Header />
             <BreadCrumb
                 title="ارتباط با ما"
                 items={[
@@ -147,7 +144,6 @@ const Contact: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <Footer />
         </>
     )
 }

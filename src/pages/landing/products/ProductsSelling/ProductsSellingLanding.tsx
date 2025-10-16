@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ProductsBox from "../../components/ProductsBox";
-import { ToastUtils } from "../../../../components/common/utils/ToastUtils";
+import { ToastUtils } from "../../../../components/common/toast/ToastUtils";
 import type { Product } from "../../../../model/Products";
 
 const ProductsSellingLanding: React.FC = () => {

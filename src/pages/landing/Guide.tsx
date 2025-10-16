@@ -1,14 +1,12 @@
 import React from "react";
-import BreadCrumb from "../../components/common/breadCrumb/BreadCrumb";
-import Header from "./Header";
-import Footer from "./Footer";
+import BreadCrumb from "../../components/landingLayout/breadCrumb/BreadCrumb";
+
 import { FaRegCircleQuestion } from "react-icons/fa6";
 
 const Guide: React.FC = () => {
 
     return (
         <>
-            <Header />
             <BreadCrumb
                 title="راهنمای خرید و سفارش"
                 items={[
@@ -72,7 +70,6 @@ const Guide: React.FC = () => {
                 </div>
 
             </div>
-            <Footer />
 
         </>
     )

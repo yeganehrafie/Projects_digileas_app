@@ -1,36 +1,29 @@
 import type { ReactNode } from "react";
-// import SideBar from "./SideBar";
-// import TopBar from "./TopBar";
-// import AppContext from "../../context/AppContext";
-
-interface LayoutProps {
+import SideBar from "./SidBar";
+import Header_Dashborde from "./components/Header";
+interface LayoutDashboardProps {
     children: ReactNode;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const LayoutDashboard: React.FC<LayoutDashboardProps> = ({ children }) => {
     return (
-        <div className="w-full h-full overflow-auto">
-            {/* <TopBar
-        top_menu_click={top_menu_click}
-        topBarOpenStatus={topBarOpenStatus}
-      /> */}
+        <div dir="rtl" className="min-h-screen bg-gray-50">
+            {/* هدر  داشبورد */}
+            <Header_Dashborde />
 
-            <div className="flex flex-grow h-full overflow-auto">
-                {/* بخش sidbar */}
-                <div>
-                    {/* <SideBar /> */}
+            <div className="flex h-screen pt-16">
+                {/* سایدبار */}
+                <div className="w-64 bg-white shadow-lg">
+                    <SideBar />
                 </div>
 
-                {/* بخش content */}
-                <main>
-                    <div>
-                        {children}
-                    </div>
+                {/* محتوای اصلی */}
+                <main className="flex-1 overflow-auto p-6">
+                    {children}
                 </main>
-                <div id="modal"></div>
             </div>
         </div>
     );
 };
 
-export default Layout;
+export default LayoutDashboard;
