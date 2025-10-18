@@ -76,6 +76,7 @@ const Login: React.FC = () => {
             navigate("/");
         }
     };
+    
 
     useEffect(() => {
         const savedUser = localStorage.getItem("currentUser");

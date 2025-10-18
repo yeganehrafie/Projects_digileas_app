@@ -2,11 +2,11 @@ import { useContext, useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import type { User } from "../../model/User";
 import Logo from "../../components/common/logo/Logo";
-import Search from "../../components/common/search/Search";
 import NavigationMenu from "./NavigationMenu";
 import { FaRegUser, FaChevronDown, FaUserCircle } from "react-icons/fa";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
+import { IoSearchOutline } from "react-icons/io5";
 import AppContext from "../../context/AppContext ";
 
 const Header = () => {
@@ -57,10 +57,19 @@ const Header = () => {
                 <div className="header-top-wrapper bg-[#0E2148] text-gray-800
                       flex items-center justify-between  md:px-[5%] py-3 text-md ">
                     {/* search */}
-                    <div className="header-left w-2/3 px-5 md:w-2/4 ">
-                        <Search />
-                    </div>
-                    <div className="header-right text-gray-100 flex flex-col md:flex-row items-center space-y-4 md:space-y-0">
+                    <div className="header-right w-2/3 px-5 md:w-2/4 ">
+                        <div className="search">
+                            <form className="relative flex items-center w-full">
+                                <input
+                                    className="w-full text-right text-md text-gray-800 border border-gray-300
+                     focus:border-emerald-500 rounded-sm duration-300 px-12 py-3 cursor-pointer outline-none pr-4"
+                                    type="text"
+                                    placeholder="جستجو کنید ..."
+                                />
+                                <IoSearchOutline className="absolute left-3 text-xl text-gray-400" />
+                            </form>
+                        </div>                    </div>
+                    <div className="header-left text-gray-100 flex flex-col md:flex-row items-center space-y-4 md:space-y-0">
                         <div className="relative" ref={dropdownRef}>
                             {loggedInUser ? (
                                 <div className="flex items-center">

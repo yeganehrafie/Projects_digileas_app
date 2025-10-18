@@ -1,29 +1,79 @@
+import React, { useContext, useState, useEffect } from "react";
 import type { ReactNode } from "react";
 import SideBar from "./SidBar";
+import AppContext from "../../context/AppContext ";
 import Header_Dashborde from "./components/Header";
+
+/**
+ * 
+ * 1-در حالت موبایل روی همبرگری کلیک کردی منو باز بشه 
+ * 2- صفحات داشبرد و ویرایش پرئفایل و علاقه مندی ها رو حتما بزن
+ */
 interface LayoutDashboardProps {
     children: ReactNode;
 }
 
 const LayoutDashboard: React.FC<LayoutDashboardProps> = ({ children }) => {
-    return (
-        <div dir="rtl" className="min-h-screen bg-gray-50">
-            {/* هدر  داشبورد */}
-            <Header_Dashborde />
+    const { isOpen, setIsOpen } = useContext(AppContext);
+    const [topBarOpenStatus, setTopBarOpenStatus] = useState<boolean>(false);
 
-            <div className="flex h-screen pt-16">
-                {/* سایدبار */}
-                <div className="w-64 bg-white shadow-lg">
+
+    useEffect(() => {
+        // فقط در حالت موبایل وضعیت سایدبار را از localStorage بخوان
+        if (window.innerWidth >= 768) {
+            const saved = localStorage.getItem("isOpen");
+            if (saved !== null) {
+                setIsOpen(JSON.parse(saved));
+            }
+        }
+    }, [setIsOpen]);
+
+    //برای اینکه در حالت موبایل در هر جای صفحهکلیک شد سایدبار بسته بشه
+    useEffect(() => {
+        if (window.innerWidth < 768) {
+            localStorage.setItem("isOpen", JSON.stringify(isOpen));
+        }
+    }, [isOpen]);
+
+
+
+
+    const close_top_menu = () => {
+        if (topBarOpenStatus) {
+            setTopBarOpenStatus(false);
+        }
+    };
+
+    return (
+        <div
+            onClick={close_top_menu}
+            dir="rtl" className="min-h-screen bg-gray-50">
+            <div className="flex">
+                {/* SideBar */}
+                <div
+                    className={`z-50 ${isOpen ? "lg:w-1/6 left-0 p-4" : "p-4"}
+                              "block"
+                              `} >
+
                     <SideBar />
                 </div>
+                <div
+                    className={`transition-all duration-300 overflow-y-auto   absolute 
+                        ${isOpen ? "mx-auto w-full  lg:w-5/6 left-0 " : "w-full left-0"
+                        }`}
+                >
 
-                {/* محتوای اصلی */}
-                <main className="flex-1 overflow-auto p-6">
-                    {children}
-                </main>
+                    <Header_Dashborde />
+
+                    {/* main content*/}
+                    <main className="flex-1 overflow-auto p-6">
+                        {children}
+                    </main>
+                </div>
             </div>
         </div>
     );
 };
 
 export default LayoutDashboard;
+

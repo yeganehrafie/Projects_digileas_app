@@ -11,7 +11,7 @@ interface BreadCrumbProps {
 }
 const BreadCrumb: React.FC<BreadCrumbProps> = ({ items }) => {
     return (
-        <nav className="p-3 mb-4 md:mb-2 relative z-[300] md:z-[300]">
+        <nav className="p-3 mb-4 md:mb-2 relative z-40 md:z-40">
             <ul className="flex flex-row  font-meduim  gap-1 md:gap-2">
                 {items?.map((item, index) => (
                     <li key={index + "bbr"}>

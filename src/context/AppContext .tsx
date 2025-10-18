@@ -18,6 +18,8 @@ export interface ContextType {
     setIsVerified: React.Dispatch<React.SetStateAction<boolean>>;
     basket?: BasketItem[];
     setBasket: React.Dispatch<React.SetStateAction<BasketItem[]>>;
+    isOpen?: boolean;
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const defaultContext: ContextType = {
@@ -32,6 +34,8 @@ const defaultContext: ContextType = {
     setIsVerified: () => { },
     basket: undefined,
     setBasket: () => { },
+    isOpen: true,
+    setIsOpen: () => { }
 };
 
 const AppContext = createContext<ContextType>(defaultContext);
