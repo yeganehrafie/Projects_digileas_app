@@ -4,11 +4,7 @@ import SideBar from "./SidBar";
 import AppContext from "../../context/AppContext ";
 import Header_Dashborde from "./components/Header";
 
-/**
- * 
- * 1-در حالت موبایل روی همبرگری کلیک کردی منو باز بشه 
- * 2- صفحات داشبرد و ویرایش پرئفایل و علاقه مندی ها رو حتما بزن
- */
+
 interface LayoutDashboardProps {
     children: ReactNode;
 }
@@ -19,7 +15,6 @@ const LayoutDashboard: React.FC<LayoutDashboardProps> = ({ children }) => {
 
 
     useEffect(() => {
-        // فقط در حالت موبایل وضعیت سایدبار را از localStorage بخوان
         if (window.innerWidth >= 768) {
             const saved = localStorage.getItem("isOpen");
             if (saved !== null) {
@@ -36,8 +31,6 @@ const LayoutDashboard: React.FC<LayoutDashboardProps> = ({ children }) => {
     }, [isOpen]);
 
 
-
-
     const close_top_menu = () => {
         if (topBarOpenStatus) {
             setTopBarOpenStatus(false);
@@ -47,24 +40,17 @@ const LayoutDashboard: React.FC<LayoutDashboardProps> = ({ children }) => {
     return (
         <div
             onClick={close_top_menu}
-            dir="rtl" className="min-h-screen bg-gray-50">
+            className="min-h-screen bg-gray-50">
             <div className="flex">
                 {/* SideBar */}
-                <div
-                    className={`z-50 ${isOpen ? "lg:w-1/6 left-0 p-4" : "p-4"}
-                              "block"
-                              `} >
+                <SideBar />
 
-                    <SideBar />
-                </div>
                 <div
                     className={`transition-all duration-300 overflow-y-auto   absolute 
                         ${isOpen ? "mx-auto w-full  lg:w-5/6 left-0 " : "w-full left-0"
                         }`}
                 >
-
                     <Header_Dashborde />
-
                     {/* main content*/}
                     <main className="flex-1 overflow-auto p-6">
                         {children}

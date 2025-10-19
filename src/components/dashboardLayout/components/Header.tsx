@@ -11,7 +11,7 @@ const Header_Dashborde: React.FC = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const [localUser, setLocalUser] = useState<User | null>(null);
-    const { setIsOpen, isOpen } = useContext(AppContext);
+    const { setIsOpen, isOpen, setUser, setCurrentUser } = useContext(AppContext);
 
 
     useEffect(() => {
@@ -23,30 +23,16 @@ const Header_Dashborde: React.FC = () => {
 
     const handleLogout = () => {
         localStorage.removeItem("currentUser");
-        setLocalUser(null);
-        setIsDropdownOpen(false);
-        window.location.reload();
+        localStorage.removeItem("user");
+        setCurrentUser(undefined);
+        setUser(undefined);
+        return true;
     };
 
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
 
-
-
-
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-                setIsDropdownOpen(false);
-            }
-        };
-
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
 
 
     return (
@@ -78,7 +64,7 @@ const Header_Dashborde: React.FC = () => {
 
 
                     {/* user dropdown header-left*/}
-                    <div className="header-left text-gray-800 flex fixed left-0 items-center">
+                    <div className="header-left text-gray-800 flex fixed left-6 items-center">
                         <div className="relative outline-none" ref={dropdownRef}>
                             <div className="flex items-center">
                                 <button
@@ -108,7 +94,7 @@ const Header_Dashborde: React.FC = () => {
                                 </button>
 
                                 {isDropdownOpen && (
-                                    <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 z-50 overflow-hidden ">
+                                    <div className="absolute top-full right-0  mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 z-50 overflow-hidden ">
                                         <div className="py-2 text-md text-right">
                                             <Link
                                                 to="/user/profile/edite"
@@ -116,7 +102,7 @@ const Header_Dashborde: React.FC = () => {
                                                 className="flex items-center px-4 py-2  text-gray-600 hover:text-emerald-500  duration-500"
                                             >
                                                 <FaUserCircle className="text-emerald-500 ml-2" />
-                                                ویرایش پروفایل
+                                                پروفایل من
                                             </Link>
                                             <div className="border-t border-gray-100 my-1"></div>
                                             <button

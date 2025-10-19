@@ -76,27 +76,26 @@ const user_menu: MenuItem[] = [
     },
 
     {
-        label: "سفارشات",
+        label: "سفارشات ",
         icon: <MdOutlineLibraryBooks />,
         children: [],
         href: "",
-        main: "course",
+        main: "order",
     },
     {
         label: "آدرس های من",
         icon: <MdOutlineLocationOn />,
         children: [],
         href: "",
-        main: "orderes",
+        main: "Addres",
     },
     {
         label: "علاقه مندی های من",
         icon: <MdOutlineFavoriteBorder />,
         children: [],
         href: "",
-        main: "order",
+        main: "favorits",
     },
-
 ];
 
 export const getMenu = (role: number): MenuItem[] => {

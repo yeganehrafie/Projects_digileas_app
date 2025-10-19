@@ -12,7 +12,6 @@ const SideBar: React.FC = () => {
     const [prevIsMobile, setPrevIsMobile] = useState(false);
     const sidebarRef = useRef<HTMLDivElement>(null);
     const location = useLocation();
-
     const isOpenRef = useRef<boolean>(isOpen);
 
     useEffect(() => {
@@ -24,7 +23,7 @@ const SideBar: React.FC = () => {
         if (isMobile && isOpen) {
             setIsOpen(false);
         }
-    }, [location.pathname, isMobile, setIsOpen, isOpen]);
+    }, [location.pathname, isMobile, setIsOpen]);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -80,22 +79,22 @@ const SideBar: React.FC = () => {
                 ref={sidebarRef}
                 data-ignore-outside-click
                 className={`
-        fixed top-0 right-0 h-full
-        transition-all duration-500 ease-in-out
-        bg-white shadow-lg
-        ${isMobile ? "z-50" : "z-50"}
-        ${isOpen
-                        ? "w-24 px-0 lg:w-1/6  lg:px-4 opacity-100 translate-x-0"
-                        : "w-0 opacity-0 translate-x-full pointer-events-none"
+                fixed top-0 right-0 h-full
+                transition-all duration-500 ease-in-out
+                bg-white shadow-lg
+                ${isMobile ? "z-50" : "z-50 w-1/6"}
+                ${isOpen
+                        ? "w-68 px-0 lg:w-1.5/6 md:w-1.5/6 lg:px-4 opacity-100 translate-x-0"
+                        : "w-68 opacity-0 translate-x-full pointer-events-none"
                     }
-        overflow-hidden
-    `}
+                     overflow-hidden
+                `}
 
             >
-                <div className="logo flex justify-center items-center p-4 hidden lg:block">
+                <div className="logo flex justify-center items-center p-4 mt-2 ">
                     <Logo />
                 </div>
-                <div className="w-64 ">
+                <div className="w-68 ">
                     {isOpen ? (
                         <SideBarItem />
                     ) : (
@@ -107,7 +106,7 @@ const SideBar: React.FC = () => {
             {/* Overlay برای موبایل */}
             {isMobile && isOpen && (
                 <div
-                    className="fixed inset-0 bg-black bg-opacity-40 z-50"
+                    className="fixed inset-0 bg-black/50  z-40"
                     onClick={() => setIsOpen(false)}
                 />
             )}

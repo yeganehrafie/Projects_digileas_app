@@ -55,15 +55,15 @@ const SideBarItem: React.FC = () => {
 
     return (
         menu && (
-            <div className="space-y-3 text-gray-800 font-meduim overflow-x-hidden">
+            <div className="space-y-3 text-gray-800 font-meduim overflow-x-hidden mt-4">
                 {menu.map((item, index) => (
                     <div key={index}>
                         <Link
                             to={item.href}
                             className={`${isItemActive(item)
-                                ? "bg-emerald-50 text-emerald-500 rounded-sm mt-8"
-                                : "border-transparent"
-                                } flex flex-row  gap-2 p-2  cursor-pointer
+                                ? "bg-emerald-50 text-emerald-500 rounded-sm "
+                                : "border-transparent "
+                                } flex flex-row  gap-1 py-2 px-1  cursor-pointer
                                 hover:mr-2  hover:duration-500`}
                             onClick={(e) => {
                                 if (item.children.length > 0) {
@@ -72,10 +72,10 @@ const SideBarItem: React.FC = () => {
                                 }
                             }}
                         >
-                            <div className="w-fit text-xl  px-5 lg:px-0  text-center text-emerald-500 font-bold">
+                            <div className="w-fit text-xl  px-2 lg:px-0  text-center text-emerald-500 font-bold">
                                 {item.icon}
                             </div>
-                            <div className="flex-grow text-right hidden lg:block">{item.label}</div>
+                            <div className="flex-grow text-right  text-md ">{item.label}</div>
 
                             <div className="w-fit">
                                 {item.children.length > 0 && (
