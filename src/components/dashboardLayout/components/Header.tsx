@@ -11,7 +11,42 @@ const Header_Dashborde: React.FC = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const [localUser, setLocalUser] = useState<User | null>(null);
-    const { setIsOpen, isOpen, setUser, setCurrentUser } = useContext(AppContext);
+    const { setIsOpen, isOpen, setUser, setCurrentUser, currentUser } = useContext(AppContext);
+
+    const loadUserFromStorage = () => {
+        const userData = localStorage.getItem("currentUser");
+        const userProfileData = localStorage.getItem("userProfile");
+
+        if (userProfileData) {
+            const parsedProfile = JSON.parse(userProfileData);
+            setLocalUser({
+                ...parsedProfile,
+                image: parsedProfile.profileImage
+            });
+        } else if (userData) {
+            setLocalUser(JSON.parse(userData));
+        }
+    };
+
+    useEffect(() => {
+        loadUserFromStorage();
+        const handleStorageChange = () => {
+            loadUserFromStorage();
+        };
+
+        window.addEventListener('storage', handleStorageChange);
+
+        const interval = setInterval(loadUserFromStorage, 1000);
+
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+            clearInterval(interval);
+        };
+    }, []);
+
+    useEffect(() => {
+        loadUserFromStorage();
+    }, [currentUser]);
 
 
     useEffect(() => {
@@ -24,8 +59,11 @@ const Header_Dashborde: React.FC = () => {
     const handleLogout = () => {
         localStorage.removeItem("currentUser");
         localStorage.removeItem("user");
+        localStorage.removeItem("userProfile");
+        localStorage.removeItem("storage");
         setCurrentUser(undefined);
         setUser(undefined);
+        setLocalUser(null);
         return true;
     };
 
@@ -33,8 +71,25 @@ const Header_Dashborde: React.FC = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
 
+    useEffect(() => {
+        loadUserFromStorage();
+        const handleStorageChange = () => {
+            loadUserFromStorage();
+        };
 
+        window.addEventListener('storage', handleStorageChange);
 
+        const interval = setInterval(loadUserFromStorage, 1000);
+
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+            clearInterval(interval);
+        };
+    }, []);
+
+    useEffect(() => {
+        loadUserFromStorage();
+    }, [currentUser]);
     return (
         <header className="header">
             <div className="max-w-full border-b ">

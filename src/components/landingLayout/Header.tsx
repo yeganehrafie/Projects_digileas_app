@@ -15,6 +15,7 @@ const Header = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
+
     useEffect(() => {
         const userData = localStorage.getItem("currentUser");
         if (userData) {
@@ -40,6 +41,9 @@ const Header = () => {
 
     const handleLogout = () => {
         localStorage.removeItem("currentUser");
+        localStorage.removeItem("user");
+        localStorage.removeItem("userProfile");
+        localStorage.removeItem("storage");
         setLocalUser(null);
         setIsDropdownOpen(false);
         window.location.reload();
@@ -49,7 +53,40 @@ const Header = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
 
+    // ویرایش پروفایل انجام شده در پنل کاربر
+    const loadUserFromStorage = () => {
+        const userData = localStorage.getItem("currentUser");
+        const userProfileData = localStorage.getItem("userProfile");
 
+        if (userData) {
+            const parsedUser = JSON.parse(userData);
+            setLocalUser(parsedUser);
+        } else if (userProfileData) {
+            const parsedProfile = JSON.parse(userProfileData);
+            setLocalUser({
+                ...parsedProfile,
+                image: parsedProfile.profileImage
+            });
+        }
+    };
+    useEffect(() => {
+        loadUserFromStorage();
+        const handleStorageChange = () => {
+            loadUserFromStorage();
+        };
+        window.addEventListener('storage', handleStorageChange);
+        const interval = setInterval(loadUserFromStorage, 1000);
+
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+            clearInterval(interval);
+        };
+    }, []);
+    useEffect(() => {
+        loadUserFromStorage();
+    }, [currentUser]);
+
+    
     return (
         <header className="header">
             <div className="max-w-full shadow-md shadow-gray-500/50">
