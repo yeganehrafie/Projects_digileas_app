@@ -14,7 +14,9 @@ interface UserProfileData {
     lastName: string;
     username: string;
     email: string;
+    phoneNumber: string;
     profileImage: string;
+    address: string;
 }
 const Edite: React.FC = () => {
     const { currentUser, setCurrentUser } = useContext(AppContext);
@@ -23,7 +25,9 @@ const Edite: React.FC = () => {
         lastName: "",
         username: "",
         email: "",
-        profileImage: ""
+        phoneNumber: "",
+        profileImage: "",
+        address: "",
     });
 
     const convertUserToUserProfileData = (user: User): UserProfileData => {
@@ -32,7 +36,9 @@ const Edite: React.FC = () => {
             lastName: user.lastName || "",
             username: user.username || "",
             email: user.email || "",
-            profileImage: user.image || ""
+            phoneNumber: user.phoneNumber || "",
+            profileImage: user.image || "",
+            address: user.address || ""
         };
     };
 
@@ -48,13 +54,18 @@ const Edite: React.FC = () => {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        console.log('Input changed:', name, value);
         setUserData(prev => ({
             ...prev,
             [name]: value
         }));
     };
-
+    const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setUserData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
     // مدیریت آپلود عکس
     const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -93,20 +104,52 @@ const Edite: React.FC = () => {
 
         if (setCurrentUser) {
             const updatedUser = {
+                ...currentUser,//حذف اطلاعات قبلی کاربر
                 firstName: userData.firstName,
                 lastName: userData.lastName,
                 username: userData.username,
                 email: userData.email,
+                phoneNumber: userData.phoneNumber,
+                address: userData.address,
                 image: userData.profileImage
             } as User;
 
             setCurrentUser(updatedUser);
             localStorage.setItem("currentUser", JSON.stringify(updatedUser));
+
+            updateUserInUsersList(updatedUser);
         }
 
-
-
         ToastUtils.success("تغییرات با موفقیت ثبت شد")
+    };
+
+    //   آپدیت کاربر در لیست 
+    const updateUserInUsersList = (updatedUser: User) => {
+        const existingUsers = localStorage.getItem("users");
+        if (existingUsers) {
+            const users: User[] = JSON.parse(existingUsers);
+
+            // پیدا کردن کاربر فعلی و آپدیت آن
+            const updatedUsers = users.map(user => {
+                if (user.phoneNumber === updatedUser.phoneNumber ||
+                    (currentUser && user.phoneNumber === currentUser.phoneNumber)) {
+                    return {
+                        ...user,
+                        firstName: updatedUser.firstName,
+                        lastName: updatedUser.lastName,
+                        username: updatedUser.username,
+                        email: updatedUser.email,
+                        address: updatedUser.address,
+                        image: updatedUser.image
+                    };
+                }
+                return user;
+            });
+
+            // ذخیره لیست آپدیت شده
+            localStorage.setItem("users", JSON.stringify(updatedUsers));
+        }
+
     };
 
     return (
@@ -195,6 +238,30 @@ const Edite: React.FC = () => {
                                         value={userData.email}
                                         onChange={handleInputChange}
                                     />
+                                </div>
+                            </div>
+                            <div className="flex flex-col md:flex-row items-center justify-start gap-6 w-full mt-4">
+                                <div className="input-group w-full md:w-1/2">
+                                    <label htmlFor="phoneNumber" className="text-gray-800 font-medium">موبایل</label>
+                                    <input
+                                        className="outline-none cursor-pointer max-w-full w-full px-4 py-2 border border-gray-300 focus:border-emerald-400 rounded-sm mt-2"
+                                        type="number"
+                                        name="phoneNumber"
+                                        placeholder="09102608990"
+                                        value={userData.phoneNumber}
+                                        onChange={handleInputChange}
+                                    />
+                                </div>
+                                <div className="input-group w-full md:w-1/2">
+                                    <label htmlFor="address" className="text-gray-800 font-medium">آدرس</label>
+                                    <textarea
+                                        name="address"
+                                        value={userData.address}
+                                        onChange={handleTextareaChange}
+                                        placeholder="کرج- باغستان"
+                                        className="outline-none cursor-pointer max-w-full w-full px-4 py-2 border border-gray-300 focus:border-emerald-400 rounded-sm mt-2"
+                                    ></textarea>
+
                                 </div>
                             </div>
                         </div>

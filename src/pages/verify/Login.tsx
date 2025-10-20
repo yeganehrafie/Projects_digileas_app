@@ -52,7 +52,7 @@ const Login: React.FC = () => {
             setUser(normalUser);
             setCurrentUser(normalUser);
             localStorage.setItem("currentUser", JSON.stringify(normalUser));
-            localStorage.removeItem("userProfile");
+            // localStorage.removeItem("userProfile");
             ToastUtils.success(`کاربر ${user} به فروشگاه دیجی لیزخوش آمدید`);
             redirectUserByRole(normalUser);
             return;
