@@ -79,7 +79,7 @@ const user_menu: MenuItem[] = [
         label: "سفارشات من",
         icon: <MdOutlineLibraryBooks />,
         children: [],
-        href: "",
+        href: "/user/order",
         main: "order",
     },
     {
@@ -95,6 +95,13 @@ const user_menu: MenuItem[] = [
         children: [],
         href: "/user/favorites",
         main: "favorits",
+    },
+    {
+        label: "دیدگاه های من",
+        icon: <MdOutlineFavoriteBorder />,
+        children: [],
+        href: "/user/comments",
+        main: "comments",
     },
 ];
 

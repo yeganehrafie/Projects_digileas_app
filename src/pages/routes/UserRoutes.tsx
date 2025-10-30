@@ -5,6 +5,7 @@ import Profile from "../user/profile/Edite";
 import Dashboard from "../user/Dashboard";
 import Favorites from "../user/favorites/Favorites";
 import UpdatePassword from "../user/profile/UpdatePassword";
+import Orders from "../user/order/orders";
 export default function UserRoutes() {
     const currentUser = JSON.parse(localStorage.getItem("currentUser") || "null") as User;
     const navigate = useNavigate();
@@ -21,6 +22,7 @@ export default function UserRoutes() {
             <Route path="/profile/edite" element={<Profile />} />
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/profile/changePassword" element={<UpdatePassword />} />
+            <Route path="/order" element={<Orders />} />
 
         </Routes>
     );
