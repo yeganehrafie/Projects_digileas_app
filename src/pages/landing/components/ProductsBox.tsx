@@ -47,7 +47,7 @@ const ProductsBox: React.FC<ProductsBoxProps> = ({
         <div className="box bg-[#F6F9FC] rounded-md shadow-sm border border-gray-100 p-4 text-gray-800 group  transition-all duration-300 relative h-full">
 
             {/* Discount Label */}
-            {pro.price.offer_percent > 0 && (
+            {pro.price?.offer_percent > 0 && (
                 <div className="MuiChip-label absolute top-3 left-0 mx-2 z-10">
                     <span className="bg-[#f05454] text-white rounded-full px-3 py-1 text-xs font-bold">
                         {pro.price.offer_percent}%
@@ -109,18 +109,18 @@ const ProductsBox: React.FC<ProductsBoxProps> = ({
                 </div>
 
                 <div className="price flex items-center justify-start gap-2">
-                    {pro.price.offer > 0 ? (
+                    {pro.price?.offer > 0 ? (
                         <>
                             <span className="text-[#f05454] text-lg font-bold">
-                                {formatPrice(pro.price.offer)} تومان
+                                {formatPrice(pro.price?.offer)} تومان
                             </span>
                             <span className="text-gray-500 text-sm line-through">
-                                {formatPrice(pro.price.amount)} تومان
+                                {formatPrice(pro.price?.amount)} تومان
                             </span>
                         </>
                     ) : (
                         <span className="text-gray-800 text-lg font-bold">
-                            {formatPrice(pro.price.amount)} تومان
+                            {formatPrice(pro.price?.amount)} تومان
                         </span>
                     )}
                 </div>

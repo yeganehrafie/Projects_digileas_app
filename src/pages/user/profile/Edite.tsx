@@ -1,8 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import BreadCrumb from "../../../components/dashboardLayout/breadCrumb/BreadCrumb";
 import Img_user from "./../../../images/image_user.png";
 import BtnSubmit from "../../../components/common/buttons/BtnSubmit";
-// import BtnDeleteProfile from "../../../components/common/buttons/BtnDeleteProfile";
+import BtnCancel from "../../../components/common/buttons/BtnCancel";
 import AppContext from "../../../context/AppContext ";
 import type { User } from "../../../model/User";
 import { ToastUtils } from "../../../components/common/toast/ToastUtils";
@@ -19,6 +20,7 @@ interface UserProfileData {
     address: string;
 }
 const Edite: React.FC = () => {
+    const navigate = useNavigate();
     const { currentUser, setCurrentUser } = useContext(AppContext);
     const [userData, setUserData] = useState({
         firstName: "",
@@ -163,7 +165,7 @@ const Edite: React.FC = () => {
             />
 
             <form onSubmit={handleSubmit}>
-                <div className="profile bg-white border border-gray-50 shadow-md py-3 px-8 pb-8 max-w-full w-[80%] mx-auto rounded-md">
+                <div className="profile bg-white border border-gray-50 shadow-md py-3 px-8 pb-8 max-w-full w-full rounded-md mt-10">
                     <div className="flex flex-col items-start justify-start space-y-8 w-full">
                         {/* Image */}
                         <div className="profile-img flex items-center gap-6">
@@ -265,10 +267,16 @@ const Edite: React.FC = () => {
                                 </div>
                             </div>
                         </div>
-                        <BtnSubmit
-                            onClick={() => handleSubmit({} as React.FormEvent)}
-                            name="ثبت تغییرات"
-                        />
+                        <div className="btns flex flex-row gap-4">
+                            <BtnSubmit
+                                name="ثبت تغییرات"
+                            />
+                            <BtnCancel
+                                onClick={() => navigate("/user/dashboard")}
+                                name="انصراف"
+                            />
+                        </div>
+
 
                     </div>
                 </div>

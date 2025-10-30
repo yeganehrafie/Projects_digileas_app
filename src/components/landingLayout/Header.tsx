@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import type { User } from "../../model/User";
 import Logo from "../../components/common/logo/Logo";
 import NavigationMenu from "./NavigationMenu";
-import { FaRegUser, FaChevronDown, FaUserCircle } from "react-icons/fa";
+import { FaRegUser, FaChevronDown, FaUserCircle, FaUserLock } from "react-icons/fa";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
 import { IoSearchOutline } from "react-icons/io5";
@@ -86,7 +86,7 @@ const Header = () => {
         loadUserFromStorage();
     }, [currentUser]);
 
-    
+
     return (
         <header className="header">
             <div className="max-w-full shadow-md shadow-gray-500/50">
@@ -134,6 +134,14 @@ const Header = () => {
                                                 >
                                                     <FaUserCircle className="text-emerald-500 ml-2" />
                                                     پروفایل من
+                                                </Link>
+                                                <Link
+                                                    to="/user/profile/changePassword"
+                                                    onClick={() => setIsDropdownOpen(false)}
+                                                    className="flex items-center px-4 py-2  text-gray-600 hover:text-emerald-500  duration-500"
+                                                >
+                                                    <FaUserLock className="text-emerald-500 ml-2" />
+                                                    تغییر رمز عبور
                                                 </Link>
                                                 <div className="border-t border-gray-100 my-1"></div>
                                                 <button

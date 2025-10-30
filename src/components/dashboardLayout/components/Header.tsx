@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import type { User } from "../../../model/User";
 import Search from "../../common/search/Search";
 import AppContext from "../../../context/AppContext ";
-import { FaChevronDown, FaUserCircle } from "react-icons/fa";
+import { FaChevronDown, FaUserCircle, FaUserLock } from "react-icons/fa";
 import { BiLogOut } from "react-icons/bi";
 import { CgMenuRight } from "react-icons/cg";
 import Img_user from "../../../images/image_user.png";
@@ -149,7 +149,7 @@ const Header_Dashborde: React.FC = () => {
                                 </button>
 
                                 {isDropdownOpen && (
-                                    <div className="absolute top-full right-0  mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 z-50 overflow-hidden ">
+                                    <div className="absolute top-full left-0  mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 z-50 overflow-hidden ">
                                         <div className="py-2 text-md text-right">
                                             <Link
                                                 to="/user/profile/edite"
@@ -158,6 +158,14 @@ const Header_Dashborde: React.FC = () => {
                                             >
                                                 <FaUserCircle className="text-emerald-500 ml-2" />
                                                 پروفایل من
+                                            </Link>
+                                            <Link
+                                                to="/user/profile/changePassword"
+                                                onClick={() => setIsDropdownOpen(false)}
+                                                className="flex items-center px-4 py-2  text-gray-600 hover:text-emerald-500  duration-500"
+                                            >
+                                                <FaUserLock className="text-emerald-500 ml-2" />
+                                                تغییر رمز عبور
                                             </Link>
                                             <div className="border-t border-gray-100 my-1"></div>
                                             <button

@@ -40,7 +40,7 @@ const LayoutDashboard: React.FC<LayoutDashboardProps> = ({ children }) => {
     return (
         <div
             onClick={close_top_menu}
-            className="min-h-screen bg-gray-50">
+            className="min-h-screen  bg-gray-50">
             <div className="flex">
                 {/* SideBar */}
                 <SideBar />

@@ -19,7 +19,7 @@ const FormComment: React.FC = () => {
 
 
     return (
-        <div className="form mt-10 bg-[#f6f9fc] p-6 rounded-md shadow-sm">
+        <div className="form mt-10 bg-[#f6f9fc] p-6 rounded-md shadow-sm mb-10">
             <div className="title mb-6">
                 <h3 className="text-xl font-semibold text-gray-800 text-start">
                     نظر بدهید

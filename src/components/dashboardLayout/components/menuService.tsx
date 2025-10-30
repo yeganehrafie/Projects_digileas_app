@@ -28,12 +28,12 @@ const admin_menu: MenuItem[] = [
         icon: <FaUserAlt />,
         children: [
             {
-                label: "ثبت نمرات",
+                label: "ثبت ",
                 href: "/admin/user/grade",
                 main: "grade",
             },
             {
-                label: "کارت آزمون",
+                label: "کارت ",
                 href: "/admin/user/kard",
                 main: "kard",
             },
@@ -76,7 +76,7 @@ const user_menu: MenuItem[] = [
     },
 
     {
-        label: "سفارشات ",
+        label: "سفارشات من",
         icon: <MdOutlineLibraryBooks />,
         children: [],
         href: "",
@@ -93,7 +93,7 @@ const user_menu: MenuItem[] = [
         label: "علاقه مندی های من",
         icon: <MdOutlineFavoriteBorder />,
         children: [],
-        href: "",
+        href: "/user/favorites",
         main: "favorits",
     },
 ];
