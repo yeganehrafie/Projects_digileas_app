@@ -2,6 +2,7 @@ import React from "react";
 
 import {
     FaUserAlt,
+    FaRegComments
 } from "react-icons/fa";
 import {
     MdOutlineFavoriteBorder,
@@ -76,7 +77,7 @@ const user_menu: MenuItem[] = [
     },
 
     {
-        label: "سفارشات من",
+        label: "پرداخت های من",
         icon: <MdOutlineLibraryBooks />,
         children: [],
         href: "/user/order",
@@ -98,7 +99,7 @@ const user_menu: MenuItem[] = [
     },
     {
         label: "دیدگاه های من",
-        icon: <MdOutlineFavoriteBorder />,
+        icon: <FaRegComments />,
         children: [],
         href: "/user/comments",
         main: "comments",

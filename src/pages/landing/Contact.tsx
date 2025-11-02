@@ -62,7 +62,7 @@ const Contact: React.FC = () => {
                 ]}
                 homePath="/"
             />
-            <div className="contact px-[10%] max-w-full flex flex-col lg:flex-row gap-8 items-start mt-20">
+            <div className="contact px-[10%] max-w-full flex flex-col lg:flex-row gap-8 items-start mt-20 mb-20">
                 <div className="contact-us grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-6 flex-1">
                     {contactCards.map((card) => (
                         <div key={card.id} className="group">

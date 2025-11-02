@@ -44,7 +44,11 @@ const Orders: React.FC = () => {
         return status === "paid" ? "پرداخت شده" : "پرداخت نشده";
     };
 
-
+    const getStatusClass = (status: "paid" | "unpaid") => {
+        return status === "paid"
+            ? "bg-emerald-100 text-emerald-800 border border-emerald-200 text-md"
+            : "bg-[#FFDEDE] text-[#DD0303] border border-[#F75A5A] text-md";
+    };
 
     if (isLoading) {
         return (
@@ -54,14 +58,13 @@ const Orders: React.FC = () => {
         );
     }
 
-
-    if (!orders || orders.length > 0) {
+    if (!orders || orders.length === 0) {
         return (
             <>
                 <BreadCrumb
                     items={[
                         { link: "/user/dashboard", label: "داشبرد" },
-                        { link: "", label: "سفارشات من" },
+                        { link: "", label: "پرداخت های من" },
                     ]}
                 />
                 <div className="products pb-10">
@@ -76,9 +79,9 @@ const Orders: React.FC = () => {
                     </div>
                 </div>
             </>
-
         );
     }
+
     return (
         <>
             <BreadCrumb
@@ -88,11 +91,11 @@ const Orders: React.FC = () => {
                 ]}
             />
             <div className="orders mt-10">
-                <div className="overflow-x-auto border border-gray-200 shadow-md rounded-md">
+                <div className="overflow-x-auto border border-gray-200 shadow-md rounded-sm">
                     {/* نسخه دسکتاپ  */}
                     <table className="w-full table-auto border-collapse text-md font-medium hidden md:table">
-                        <thead className="bg-gray-100 ">
-                            <tr className="text-right text-gray-800 bg-gray-100">
+                        <thead className="bg-gray-50">
+                            <tr className="text-right text-gray-800 ">
                                 <th className="p-3">محصول</th>
                                 <th className="p-3">قیمت</th>
                                 <th className="p-3">توضیحات</th>
@@ -102,22 +105,19 @@ const Orders: React.FC = () => {
                         </thead>
                         <tbody>
                             {orders.map((order) => (
-                                <tr key={order.id} className="border-b bg-white  hover:bg-gray-50 duration-300 text-right text-md text-gray-700">
+                                <tr key={order.id} className="border-b bg-white hover:bg-gray-50 duration-300 text-right text-md text-gray-700">
                                     <td className="p-3 font-medium">{order.product.name}</td>
                                     <td className="p-3">
                                         {order.product.price.offer > 0
                                             ? `${order.product.price.offer.toLocaleString()} تومان`
-                                            : `${order.product.price.amount} تومان`}
+                                            : `${order.product.price.amount.toLocaleString()} تومان`}
                                     </td>
                                     <td className="p-3 text-justify">
-                                        {truncateText(order.description || "", 9)}
+                                        {truncateText(order.description || "توضیحاتی ثبت نشده است", 25)}
                                     </td>
                                     <td className="p-3">
                                         <span
-                                            className={`px-2 py-1 rounded text-xs ${order.status === "paid"
-                                                ? "bg-emerald-400 text-emerald-400 "
-                                                : "bg-[#FFAAAA] text-[#E62727]"
-                                                }`}
+                                            className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusClass(order.status)}`}
                                         >
                                             {getStatusText(order.status)}
                                         </span>
@@ -137,41 +137,41 @@ const Orders: React.FC = () => {
                         {orders.map((order) => (
                             <div
                                 key={order.id}
-                                className="border border-gray-200 rounded-md p-4 bg-white shadow-md"
+                                className="border border-gray-200 rounded-lg p-4 bg-white shadow-sm hover:shadow-md transition-shadow duration-300"
                             >
                                 <div className="space-y-3 text-right">
-                                    <div>
-                                        <h4 className="font-bold text-gray-800">{order.product.name}</h4>
-                                        <p className="text-sm text-gray-600 mt-1 line-clamp-2">
-                                            {order.description || "توضیحاتی ثبت نشده است."}
-                                        </p>
-                                    </div>
-                                    <div className="flex justify-between items-center pt-2 border-t border-gray-100">
-                                        <span className="text-sm font-medium text-gray-800">
-                                            قیمت:
-                                            <span className="mr-1 font-normal text-gray-700">
-                                                {order.product.price.offer > 0
-                                                    ? `${order.product.price.offer.toLocaleString()} تومان`
-                                                    : `${order.product.price.amount} تومان`}
-                                            </span>
-                                        </span>
-                                        <span className="text-sm font-medium text-gray-800">
-                                            توضیحات:
-                                            <span className="mr-1 font-normal text-gray-700 text-justify">
-                                                {truncateText(order.description || "", 9)}
-                                            </span>
-
-                                        </span>
+                                    <div className="flex justify-between items-start">
+                                        <h4 className="font-bold text-gray-800 text-lg">{order.product.name}</h4>
                                         <span
-                                            className={`px-2 py-1 rounded text-xs ${order.status === "paid"
-                                                ? "bg-green-100 text-green-800"
-                                                : "bg-red-100 text-red-800"
-                                                }`}
+                                            className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusClass(order.status)}`}
                                         >
                                             {getStatusText(order.status)}
                                         </span>
                                     </div>
-                                    <div className="flex justify-between text-sm text-gray-600">
+
+                                    <div className="bg-gray-50 rounded-md p-3">
+                                        <p className="text-sm text-gray-700 leading-6">
+                                            {order.description || "توضیحاتی ثبت نشده است."}
+                                        </p>
+                                    </div>
+
+                                    <div className="flex justify-between items-center pt-3 border-t border-gray-100">
+                                        <div className="text-right">
+                                            <span className="text-sm font-medium text-gray-600">قیمت: </span>
+                                            <span className="text-sm font-bold text-gray-800 mr-1">
+                                                {order.product.price.offer > 0
+                                                    ? `${order.product.price.offer.toLocaleString()} تومان`
+                                                    : `${order.product.price.amount.toLocaleString()} تومان`}
+                                            </span>
+                                            {order.product.price.offer > 0 && (
+                                                <span className="text-xs text-gray-500 line-through mr-2">
+                                                    {order.product.price.amount.toLocaleString()} تومان
+                                                </span>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    <div className="flex justify-end pt-2">
                                         <BtnDelete
                                             onclick={() => handleDeleteOrder(order.id)}
                                         />

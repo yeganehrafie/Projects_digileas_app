@@ -60,7 +60,7 @@ const Favorites: React.FC = () => {
                 items={
                     [
                         { link: "/user/dashboard", label: "داشبرد" },
-                        { link: "", label: "علاقه مندی ها" },
+                        { link: "", label: "علاقه مندی های من" },
                     ]}
             ></BreadCrumb >
             <div className="flex flex-col md:flex-row gap-6 mt-10">
