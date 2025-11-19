@@ -34,7 +34,7 @@ const FormComment: React.FC = () => {
                             name="name"
                             value={formData.name}
                             onChange={handleChange}
-                            placeholder="نام شما *"
+                            placeholder="نام  *"
                             className="w-full outline-none px-4 py-3 rounded-sm border border-gray-300 focus:border-emerald-500 focus:ring-emerald-200 transition-all duration-200"
                             required
                         />
@@ -46,7 +46,7 @@ const FormComment: React.FC = () => {
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
-                            placeholder="ایمیل شما *"
+                            placeholder="ایمیل  *"
                             className="w-full outline-none px-4 py-3 rounded-sm border border-gray-300 focus:border-emerald-500 focus:ring-emerald-200 transition-all duration-200"
                             required
                         />
@@ -58,7 +58,7 @@ const FormComment: React.FC = () => {
                         name="comment"
                         value={formData.comment}
                         onChange={handleChange}
-                        placeholder="نظر شما *"
+                        placeholder="نظر  *"
                         rows={5}
                         className="w-full outline-none px-4 py-3 rounded-sm border border-gray-300 focus:border-emerald-500 focus:ring-emerald-200 transition-all duration-200 resize-none"
                         required

@@ -1,18 +1,16 @@
 import React from "react";
-import BreadCrumb from "../../components/dashboardLayout/breadCrumb/BreadCrumb";
-const Dashboard: React.FC = () => {
+import BreadCrumb from "../../../components/dashboardLayout/breadCrumb/BreadCrumb";
 
-
+const Edite: React.FC = () => {
     return (
         <>
             <BreadCrumb
                 items={[
                     { link: "/admin/dashboard", label: "داشبرد" },
-                    { link: "", label: "داشبرد ادمین" },
+                    { link: "", label: "ویرایش پروفایل" },
                 ]}
             />
         </>
-    );
+    )
 }
-
-export default Dashboard;
+export default Edite;

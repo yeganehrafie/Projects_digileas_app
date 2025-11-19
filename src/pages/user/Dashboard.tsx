@@ -5,7 +5,6 @@ import {
     MdOutlineLibraryBooks,
     MdOutlineLocationOn
 } from "react-icons/md";
-import { FaRegComments } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Dashboard: React.FC = () => {
@@ -26,7 +25,7 @@ const Dashboard: React.FC = () => {
             id: 2,
             title: "لیست آدرس ها",
             icons: <MdOutlineLocationOn />,
-            link: "",
+            link: "/user/address",
             getStyle: () => ({
                 background: 'linear-gradient(to right, #4E71FF 0%, #AFDDFF 51%, #60B5FF 100%)',
                 backgroundSize: '200% auto',
@@ -46,18 +45,6 @@ const Dashboard: React.FC = () => {
                 transition: 'background-position 0.5s ease',
             }),
         },
-        {
-            id: 4,
-            title: "لیست دیدگاه ها",
-            link: "/user/comments",
-            icons: <FaRegComments />,
-            getStyle: () => ({
-                background: 'linear-gradient(to right, #FF6500 0%, #ffeeb8ff 51%, #fbb462ff 100%)',
-                backgroundSize: '200% auto',
-                backgroundPosition: 'left center',
-                transition: 'background-position 0.5s ease',
-            }),
-        },
     ];
 
     return (
@@ -69,7 +56,7 @@ const Dashboard: React.FC = () => {
                 ]}
             />
             <div className="Dashboard">
-                <div className="dashbord-box grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">
+                <div className="dashbord-box grid grid-cols-2 md:grid-cols-3 gap-4 mt-10">
                     {dashbord_Box.map((item) => (
                         <div
                             key={item.id}

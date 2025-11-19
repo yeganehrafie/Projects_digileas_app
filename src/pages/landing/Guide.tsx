@@ -16,7 +16,7 @@ const Guide: React.FC = () => {
                 homePath="/"
             />
 
-            <div className="guide mt-20 px-[10%] p-4 bg-white">
+            <div className="guide mt-20 mb-20 px-[10%] p-4 bg-white">
                 <div className="guide-content  flex flex-col  justify-start space-y-12">
                     <div className="border-4 border-l-0 border-t-0 border-b-0 border-r-sky-600  px-5">
                         <div className="flex mb-3 items-center">

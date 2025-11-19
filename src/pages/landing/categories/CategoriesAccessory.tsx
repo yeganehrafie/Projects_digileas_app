@@ -143,7 +143,7 @@ const CategoriesAccessory: React.FC<CategoriesProps> = ({
         }
     }, [initialSelectedCategory]);
     return (
-        <div className="categories flex flex-col text-start space-y-4 mt-5">
+        <div className="categories flex flex-col text-start space-y-4 mt-5 ">
             {mainCategories.map(renderCategory)}
         </div>
     );

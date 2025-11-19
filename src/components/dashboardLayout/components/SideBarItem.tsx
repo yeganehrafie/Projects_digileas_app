@@ -98,10 +98,8 @@ const SideBarItem: React.FC = () => {
                                     >
                                         <div
                                             className={`p-2 w-full mt-2 pr-[30px] 
-                                                border-teal border-solid ${isChildActive(child) ? "bg-gray-100 border-r-2" : "bg-transparent"} 
-                                                hover:bg-gray-100 focus:bg-gray-100 focus:border-r-2 focus:border-teal 
-                                                hover:border-r-2 hover:border-teal hover:mr-0 hover:ml-0
-                                                border-transparent transition-colors duration-300`}
+                                                ${isChildActive(child) ? "bg-emerald-50 text-emerald-500 rounded-sm " : "border-transparent"} 
+                                                hover:mr-2  hover:duration-500`}
                                         >
                                             {child.label}
                                         </div>

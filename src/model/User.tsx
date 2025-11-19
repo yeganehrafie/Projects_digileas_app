@@ -13,6 +13,20 @@ export interface User {
     phoneNumber?: string;
     lable?: string;
     roleIds?: number[];
+    role?: number;
     email?: string;
     id?: string;
+}
+
+export interface UserProductsBoxProps {
+    user?: User[];
+    isLoading?: boolean;
+    onQuickView?: (product: User) => void;
+    selectedProduct?: User | null;
+    isModalOpen?: boolean;
+    onCloseModal?: () => void;
+    title?: string;
+    useSwiper?: boolean;
+    isFavoritePage?: boolean;
+    onRemoveFromFavorites?: (productId: string) => void;
 }

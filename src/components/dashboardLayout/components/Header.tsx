@@ -112,14 +112,14 @@ const Header_Dashborde: React.FC = () => {
                                 <CgMenuRight className="text-xl text-gray-600" />
                             </button>
                         </div>
-                        <div className="search max-w-full w-[300px] md:w-[350px]">
+                        <div className="search max-w-full w-[300px]  md:w-[350px]">
                             <Search />
                         </div>
                     </div>
 
 
                     {/* user dropdown header-left*/}
-                    <div className="header-left text-gray-800 flex fixed left-6 items-center">
+                    <div className="header-left text-gray-800 flex   left-6 items-center ">
                         <div className="relative outline-none" ref={dropdownRef}>
                             <div className="flex items-center">
                                 <button
@@ -152,7 +152,7 @@ const Header_Dashborde: React.FC = () => {
                                     <div className="absolute top-full left-0  mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 z-50 overflow-hidden ">
                                         <div className="py-2 text-md text-right">
                                             <Link
-                                                to="/user/profile/edite"
+                                                to={localUser?.role === 0 ? "/admin/profile/edite" : "/user/profile/edite"}
                                                 onClick={() => setIsDropdownOpen(false)}
                                                 className="flex items-center px-4 py-2  text-gray-600 hover:text-emerald-500  duration-500"
                                             >
@@ -160,7 +160,7 @@ const Header_Dashborde: React.FC = () => {
                                                 پروفایل من
                                             </Link>
                                             <Link
-                                                to="/user/profile/changePassword"
+                                                to={localUser?.role === 0 ? "/admin/profile/changePassword" : "/user/profile/changePassword"}
                                                 onClick={() => setIsDropdownOpen(false)}
                                                 className="flex items-center px-4 py-2  text-gray-600 hover:text-emerald-500  duration-500"
                                             >

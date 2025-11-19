@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Raiting from "../../../components/common/rating/Raiting";
-import Modal from "../../../components/common/modal/modal";
+import Modal from "../../../components/common/modal/modalProducts";
 import BtnBasket from "../../../components/common/buttons/BtnBasket";
 import Tooltip from "../../../components/common/tooltipBox/Tooltip";
 import type { ProductsBoxProps, Product } from "../../../model/Products";

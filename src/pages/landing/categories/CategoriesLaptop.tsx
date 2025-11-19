@@ -94,7 +94,7 @@ const CategoriesLaptop: React.FC<CategoriesProps> = ({
 
                 {/* زیرمنوها */}
                 {hasChildren && isExpanded && (
-                    <div className="mr-6 mt-5 space-y-4 border-r-2 border-emerald-300 pr-2">
+                    <div className="mr-6 mt-5 space-y-4 border-r-2 border-emerald-300 pr-2 ">
                         {children.map(child => {
                             const isChildChecked = selectedCategories.includes(child.id);
                             return (
@@ -142,7 +142,7 @@ const CategoriesLaptop: React.FC<CategoriesProps> = ({
         }
     }, [initialSelectedCategory]);
     return (
-        <div className="categories flex flex-col text-start space-y-4 mt-5">
+        <div className="categories flex flex-col text-start space-y-4 mt-5 ">
             {mainCategories.map(renderCategory)}
         </div>
     );

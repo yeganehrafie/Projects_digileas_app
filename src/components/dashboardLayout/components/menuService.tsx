@@ -1,9 +1,7 @@
 import React from "react";
 
-import {
-    FaUserAlt,
-    FaRegComments
-} from "react-icons/fa";
+import { LuUsersRound } from "react-icons/lu";
+
 import {
     MdOutlineFavoriteBorder,
     MdOutlineDashboardCustomize,
@@ -25,43 +23,37 @@ interface MenuItem {
 
 const admin_menu: MenuItem[] = [
     {
-        label: " کاربران",
-        icon: <FaUserAlt />,
+        label: "داشبورد",
+        icon: <MdOutlineDashboardCustomize />,
+        children: [],
+        href: "/admin/dashboard",
+        main: "index",
+    },
+
+    {
+        label: "محصولات",
+        icon: <MdOutlineLibraryBooks />,
         children: [
             {
-                label: "ثبت ",
-                href: "/admin/user/grade",
-                main: "grade",
+                label: "محصولات تخفیف‌دار",
+                href: "/admin/discount",
+                main: "discount",
             },
             {
-                label: "کارت ",
-                href: "/admin/user/kard",
-                main: "kard",
+                label: "محصولات پرفروش",
+                href: "/admin/selling",
+                main: "selling",
             },
         ],
         href: "",
         main: "",
     },
     {
-        label: "آزمون ها",
-        icon: <FaUserAlt />,
+        label: "کاربران",
+        icon: <LuUsersRound />,
         children: [],
-        href: "/admin/exam/index",
-        main: "exam",
-    },
-    {
-        label: "مالی",
-        icon: <FaUserAlt />,
-        children: [],
-        href: "/admin/manager/index",
-        main: "manager",
-    },
-    {
-        label: "درخواست ها",
-        icon: <FaUserAlt />,
-        children: [],
-        href: "/admin/ticket/index",
-        main: "ticket",
+        href: "/admin/users",
+        main: "users",
     },
 ];
 
@@ -87,7 +79,7 @@ const user_menu: MenuItem[] = [
         label: "آدرس های من",
         icon: <MdOutlineLocationOn />,
         children: [],
-        href: "",
+        href: "/user/address",
         main: "Addres",
     },
     {
@@ -96,13 +88,6 @@ const user_menu: MenuItem[] = [
         children: [],
         href: "/user/favorites",
         main: "favorits",
-    },
-    {
-        label: "دیدگاه های من",
-        icon: <FaRegComments />,
-        children: [],
-        href: "/user/comments",
-        main: "comments",
     },
 ];
 

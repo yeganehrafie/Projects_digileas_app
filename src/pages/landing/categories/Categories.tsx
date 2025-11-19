@@ -80,7 +80,7 @@ const Categories: React.FC<CategoriesProps> = ({
         const children = hasChildren ? childCategories.filter(child => child.parentId === category.id) : [];
 
         return (
-            <div key={category.id} className="w-full">
+            <div key={category.id} className="w-full ">
                 <div className="flex items-center justify-between w-full">
                     <label className="flex items-center cursor-pointer flex-1">
                         <input
@@ -150,7 +150,7 @@ const Categories: React.FC<CategoriesProps> = ({
     };
 
     return (
-        <div className="categories flex flex-col text-start space-y-4 mt-5">
+        <div className="categories flex flex-col text-start space-y-4 mt-5 ">
             {mainCategories.map(renderCategory)}
         </div>
     );
