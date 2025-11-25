@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import type { User } from "../../model/User";
-import Dashboard from "../admin/Dashboard";
+import Dashboard from "../admin/dashboard/Dashboard";
 import Discount from "../admin/products/products_discount/Discounts";
 import Selling from "../admin/products/products_selling/Sellings";
 import Users from "../admin/user/users";
