@@ -1,6 +1,7 @@
 import React from "react";
 import BreadCrumb from "../../../components/dashboardLayout/breadCrumb/BreadCrumb";
 import StatCards from "./StatCards";
+import Overview from "./Overview";
 const Dashboard: React.FC = () => {
 
 
@@ -13,9 +14,11 @@ const Dashboard: React.FC = () => {
                 ]}
             />
 
-            <div className="dashboard  max-w-full flex flex-col justify-center items-center ">
+            <div className="dashboard  max-w-full flex flex-col justify-center items-center">
                 {/* StatCards section1 */}
                 <StatCards />
+                {/* Overview section2 */}
+                <Overview />
             </div>
         </>
     );
