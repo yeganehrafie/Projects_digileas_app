@@ -2,6 +2,7 @@ import React from "react";
 import BreadCrumb from "../../../components/dashboardLayout/breadCrumb/BreadCrumb";
 import StatCards from "./StatCards";
 import Overview from "./Overview";
+import OrdersAndProducts from "./OrdersAndProducts";
 const Dashboard: React.FC = () => {
 
 
@@ -19,6 +20,8 @@ const Dashboard: React.FC = () => {
                 <StatCards />
                 {/* Overview section2 */}
                 <Overview />
+                {/* OrdersAndProducts section3 */}
+                <OrdersAndProducts />
             </div>
         </>
     );

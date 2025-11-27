@@ -40,19 +40,19 @@ const LayoutDashboard: React.FC<LayoutDashboardProps> = ({ children }) => {
     return (
         <div
             onClick={close_top_menu}
-            className="min-h-screen  bg-gray-50">
+            className="min-h-screen overflow-y-auto scrollbar-minimal  bg-gray-50">
             <div className="flex">
                 {/* SideBar */}
                 <SideBar />
 
                 <div
-                    className={`transition-all duration-300 overflow-y-auto   absolute 
+                    className={`transition-all duration-300 overflow-y-auto  scrollbar-minimal absolute 
                         ${isOpen ? "mx-auto w-full  lg:w-5/6 left-0 " : "w-full left-0"
                         }`}
                 >
                     <Header_Dashborde />
                     {/* main content*/}
-                    <main className="flex-1 overflow-auto p-6">
+                    <main className="flex-1 overflow-auto p-6  bg-gray-50 scrollbar-minimal">
                         {children}
                     </main>
                 </div>

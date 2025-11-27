@@ -7,6 +7,11 @@ import Selling from "../admin/products/products_selling/Sellings";
 import Users from "../admin/user/users";
 import Edite from "../admin/profile/Edite";
 import UpdatePassword from "../admin/profile/UpdatePassword";
+import AddDiscount from "../admin/products/products_discount/AddDiscount";
+import EditeDiscount from "../admin/products/products_discount/EditeDiscount";
+import AddSelling from "../admin/products/products_selling/AddSelling";
+import EditeSelling from "../admin/products/products_selling/EditeSelling";
+import Orders from "../admin/orders/Orders";
 export default function AdminRoutes() {
     const currentUser = JSON.parse(localStorage.getItem("currentUser") || "null") as User;
     const navigate = useNavigate();
@@ -24,11 +29,18 @@ export default function AdminRoutes() {
             <Route path="/discount" element={<Discount />} />
 
             <Route path="/selling" element={<Selling />} />
+            <Route path="/selling/add" element={<AddSelling />} />
+            <Route path="/products/edit/:slug" element={<EditeSelling />} />
 
             <Route path="/users" element={<Users />} />
 
+            <Route path="/orders" element={<Orders />} />
+
             <Route path="/profile/edite" element={<Edite />} />
             <Route path="/profile/changePassword" element={<UpdatePassword />} />
+
+            <Route path="/discount/add" element={<AddDiscount />} />
+            <Route path="/products/edit/:slug" element={<EditeDiscount />} />
 
         </Routes>
     );

@@ -3,12 +3,14 @@ import React from "react";
 
 interface PropsButton {
     onClick?: () => void;
-    name: string
+    name: string;
+    disabled?: boolean;
 }
-const BtnSubmit: React.FC<PropsButton> = ({ onClick, name }) => {
+const BtnSubmit: React.FC<PropsButton> = ({ onClick, name, disabled }) => {
 
     return (
         <button
+            disabled={disabled}
             onClick={onClick}
             name={name}
             type="submit"

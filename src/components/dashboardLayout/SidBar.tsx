@@ -81,7 +81,7 @@ const SideBar: React.FC = () => {
                 className={`
                 fixed top-0 right-0 h-full
                 transition-all duration-500 ease-in-out
-                bg-white shadow-lg
+                bg-white shadow-lg scrollbar-minimal
                 ${isMobile ? "z-50" : "z-50 w-1/6"}
                 ${isOpen
                         ? "w-68 px-0 lg:w-1.5/6 md:w-1.5/6 lg:px-4 opacity-100 translate-x-0"

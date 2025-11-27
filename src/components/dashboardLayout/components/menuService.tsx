@@ -1,6 +1,7 @@
 import React from "react";
 
 import { LuUsersRound } from "react-icons/lu";
+import { HiOutlineShoppingCart } from "react-icons/hi";
 
 import {
     MdOutlineFavoriteBorder,
@@ -46,7 +47,7 @@ const admin_menu: MenuItem[] = [
             },
         ],
         href: "",
-        main: "",
+        main: "products",
     },
     {
         label: "کاربران",
@@ -54,6 +55,13 @@ const admin_menu: MenuItem[] = [
         children: [],
         href: "/admin/users",
         main: "users",
+    },
+    {
+        label: "سفارشات",
+        icon: <HiOutlineShoppingCart />,
+        children: [],
+        href: "/admin/orders",
+        main: "orders",
     },
 ];
 

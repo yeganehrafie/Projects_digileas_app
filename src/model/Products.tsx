@@ -64,4 +64,6 @@ export interface ProductsBoxProps {
     useSwiper?: boolean;
     isFavoritePage?: boolean;
     onRemoveFromFavorites?: (productId: string) => void;
+    editBasePath?: string;
+
 }

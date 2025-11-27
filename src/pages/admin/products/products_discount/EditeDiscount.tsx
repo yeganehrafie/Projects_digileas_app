@@ -4,7 +4,7 @@ import BreadCrumb from "../../../../components/dashboardLayout/breadCrumb/BreadC
 import ImageUpload from "../../../../components/common/upload/ImageUpload";
 import BtnCancel from "../../../../components/common/buttons/BtnCancel";
 import BtnSubmit from "../../../../components/common/buttons/BtnSubmit";
-const AddSelling: React.FC = () => {
+const EditeDiscount: React.FC = () => {
     const [imagePreview, setImagePreview] = useState<string>("");
     const navigate = useNavigate();
 
@@ -13,8 +13,8 @@ const AddSelling: React.FC = () => {
             <BreadCrumb
                 items={[
                     { link: "/admin/dashboard", label: "داشبرد" },
-                    { link: "/admin/selling", label: "محصولات پر فروش" },
-                    { link: "", label: "افزودن محصول جدید" },
+                    { link: "/admin/discount", label: "محصولات تخفیف دار" },
+                    { link: "", label: "ویرایش محصول " },
                 ]}
             />
             <div className="form shadow-lg rounded-md p-4 bg-white flex-1 w-full">
@@ -75,11 +75,11 @@ const AddSelling: React.FC = () => {
                     </div>
                 </div>
                 <div className="btn mt-4 flex gap-2 justify-end">
-                    <BtnCancel name="انصراف" onClick={() => navigate("/admin/selling")} />
-                    <BtnSubmit name="ثبت اطلاعات" onClick={() => navigate("/admin/selling")} />
+                    <BtnCancel name="انصراف" onClick={() => navigate("/admin/discount")} />
+                    <BtnSubmit name="ویرایش اطلاعات" onClick={() => navigate("/admin/discount")} />
                 </div>
             </div>
         </>
     );
 }
-export default AddSelling;
+export default EditeDiscount;
