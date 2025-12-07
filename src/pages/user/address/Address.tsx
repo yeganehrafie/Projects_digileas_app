@@ -97,53 +97,56 @@ const Address: React.FC<UserProductsBoxProps> = ({
                             </span>
                         </div>
                     ) : (
-                        <div className="overflow-x-auto border border-gray-200 shadow-md rounded-sm">
-                            {/* نسخه دسکتاپ */}
-                            <table className="w-full table-auto border-collapse text-md font-medium hidden md:table">
-                                <thead className="bg-[#F4F6FF]">
-                                    <tr className="text-right text-gray-800 ">
-                                        <th className="p-3">نام و نام خانوادگی</th>
-                                        <th className="p-3">آدرس</th>
-                                        <th className="p-3">شماره تماس</th>
-                                        <th className="p-3">ایمیل</th>
-                                        <th className="p-3"></th>
-                                        <th className="p-3"></th>
-                                        <th className="p-3"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {localUser.map((userItem) => (
-                                        <tr key={userItem.id} className="border-b bg-white hover:bg-gray-50 duration-300 text-right text-md text-gray-700">
-
-                                            <td className="p-3 font-medium gap-2">
-                                                {userItem.firstName} {userItem.lastName}
-                                            </td>
-                                            <td className="p-3 text-justify">
-                                                {truncateText(userItem.address || "آدرسی ثبت نشده است", 25)}
-                                            </td>
-                                            <td className="p-3 font-medium">{userItem.phoneNumber || "شماره تماس"}</td>
-                                            <td className="p-3 font-medium">{userItem.email || "ایمیلی ثبت نشده"}</td>
-                                            <td className="p-3">
-                                                <BtnEdit onclick={() => navigate(`/user/address/edit/${userItem.id}`)} />
-                                            </td>
-                                            <td className="p-3">
-                                                <BtnDelete onclick={() => handleDelete(userItem.id!)} />
-                                            </td>
-                                            <td className="p-3">
-                                                <span
-                                                    className="text-md font-meduim text-emerald-500 hover:underline duration-300 cursor-pointer"
-                                                    onClick={() => handleShowDetails(userItem)}
-                                                >
-                                                    جزئیات بیشتر
-                                                </span>
-                                            </td>
+                        <div className=" overflow-x-auto shadow-lg p-4 rounded-md">
+                            <div className="hidden md:block overflow-x-auto">
+                                {/* نسخه دسکتاپ */}
+                                <table className="w-full text-sm text-right text-gray-700 ">
+                                    <thead className="text-xs text-gray-700 uppercase border border-b-emerald-500 border-r-0 border-l-0 border-t-0">
+                                        <tr className="text-right text-gray-800 ">
+                                            <th scope="col" className="px-4 py-3 font-semibold">نام و نام خانوادگی</th>
+                                            <th scope="col" className="px-4 py-3 font-semibold">آدرس</th>
+                                            <th scope="col" className="px-4 py-3 font-semibold">شماره تماس</th>
+                                            <th scope="col" className="px-4 py-3 font-semibold">ایمیل</th>
+                                            <th scope="col" className="px-4 py-3 font-semibold"></th>
+                                            <th scope="col" className="px-4 py-3 font-semibold"></th>
+                                            <th scope="col" className="px-4 py-3 font-semibold"></th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        {localUser.map((userItem) => (
+                                            <tr key={userItem.id} className="border-b hover:bg-gray-50">
+
+                                                <td className="p-3 font-medium gap-2">
+                                                    {userItem.firstName} {userItem.lastName}
+                                                </td>
+                                                <td className="p-3 text-justify">
+                                                    {truncateText(userItem.address || "آدرسی ثبت نشده است", 25)}
+                                                </td>
+                                                <td className="px-4 py-3 font-medium">{userItem.phoneNumber || "شماره تماس"}</td>
+                                                <td className="px-4 py-3 font-medium">{userItem.email || "ایمیلی ثبت نشده"}</td>
+                                                <td className="px-4 py-3 font-medium">
+                                                    <BtnEdit onclick={() => navigate(`/user/address/edit/${userItem.id}`)} />
+                                                </td>
+                                                <td className="px-4 py-3 font-medium">
+                                                    <BtnDelete onclick={() => handleDelete(userItem.id!)} />
+                                                </td>
+                                                <td className="px-4 py-3 font-medium">
+                                                    <span
+                                                        className="text-md font-meduim text-emerald-500 hover:underline duration-300 cursor-pointer"
+                                                        onClick={() => handleShowDetails(userItem)}
+                                                    >
+                                                        جزئیات بیشتر
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+
 
                             {/* نسخه موبایل */}
-                            <div className="md:hidden space-y-4 p-4 bg-[#F4F6FF]">
+                            <div className="md:hidden space-y-4 ">
                                 {localUser.map((userItem) => (
                                     <div
                                         key={userItem.id}
@@ -161,7 +164,7 @@ const Address: React.FC<UserProductsBoxProps> = ({
                                                 </p>
                                             </div>
 
-                                            <div className="flex justify-between items-start">
+                                            <div className="flex flex-col items-start space-y-3 ">
                                                 <p className="text-md text-gray-700">
                                                     <strong>شماره تماس:</strong> {userItem.phoneNumber || "ثبت نشده"}
                                                 </p>
@@ -189,6 +192,7 @@ const Address: React.FC<UserProductsBoxProps> = ({
                                 ))}
                             </div>
                         </div>
+
                     )}
                 </div>
             )}

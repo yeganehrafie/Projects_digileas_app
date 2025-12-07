@@ -74,44 +74,47 @@ const Orders: React.FC = () => {
                             </span>
                         </div>
                     ) : (
-                        <div className="overflow-x-auto border border-gray-200 shadow-md rounded-sm">
-                            {/* نسخه دسکتاپ */}
-                            <table className="w-full table-auto border-collapse text-md font-medium hidden md:table">
-                                <thead className="bg-[#F4F6FF]">
-                                    <tr className="text-right text-gray-800 ">
-                                        <th className="p-3">محصول</th>
-                                        <th className="p-3">قیمت</th>
-                                        <th className="p-3">توضیحات</th>
-                                        <th className="p-3">وضعیت</th>
-                                        <th className="p-3"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {orders.map((order) => (
-                                        <tr key={order.id} className="border-b bg-white hover:bg-gray-50 duration-300 text-right text-md text-gray-700">
-                                            <td className="p-3 font-medium">{order.product.name}</td>
-                                            <td className="p-3">
-                                                {order.product.price.offer.toLocaleString()} تومان
-                                            </td>
-                                            <td className="p-3 text-justify">
-                                                {truncateText(order.description || "توضیحاتی ثبت نشده است", 25)}
-                                            </td>
-                                            <td className="p-3">
-                                                <span
-                                                    className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusClass(order.status)}`}
-                                                >
-                                                    {getStatusText(order.status)}
-                                                </span>
-                                            </td>
-                                            <td className="p-3">
-                                                <BtnDelete
-                                                    onclick={() => handleDeleteOrder(order.id)}
-                                                />
-                                            </td>
+                        <div className=" overflow-x-auto shadow-lg p-4 rounded-md">
+                            <div className="hidden md:block overflow-x-auto">
+                                {/* نسخه دسکتاپ */}
+                                <table className="w-full text-sm text-right text-gray-700 ">
+                                    <thead className="text-xs text-gray-700 uppercase border border-b-emerald-500 border-r-0 border-l-0 border-t-0">
+                                        <tr className="text-right text-gray-800 ">
+                                            <th scope="col" className="px-4 py-3 font-semibold">محصول</th>
+                                            <th scope="col" className="px-4 py-3 font-semibold">قیمت</th>
+                                            <th scope="col" className="px-4 py-3 font-semibold">توضیحات</th>
+                                            <th scope="col" className="px-4 py-3 font-semibold">وضعیت</th>
+                                            <th scope="col" className="px-4 py-3 font-semibold"></th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        {orders.map((order) => (
+                                            <tr key={order.id} className="border-b hover:bg-gray-50">
+                                                <td className="p-3 font-medium gap-2">{order.product.name}</td>
+                                                <td className="p-3 font-medium gap-2">
+                                                    {order.product.price.offer.toLocaleString()} تومان
+                                                </td>
+                                                <td className="p-3 text-justify">
+                                                    {truncateText(order.description || "توضیحاتی ثبت نشده است", 25)}
+                                                </td>
+                                                <td className="p-3 font-medium gap-2">
+                                                    <span
+                                                        className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusClass(order.status)}`}
+                                                    >
+                                                        {getStatusText(order.status)}
+                                                    </span>
+                                                </td>
+                                                <td className="p-3 font-medium gap-2">
+                                                    <BtnDelete
+                                                        onclick={() => handleDeleteOrder(order.id)}
+                                                    />
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+
 
                             {/* نسخه موبایل */}
                             <div className="md:hidden space-y-4 p-4">
