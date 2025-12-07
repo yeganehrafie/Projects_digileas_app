@@ -46,6 +46,7 @@ const ProductsNew: React.FC = () => {
     const fetchProducts = useCallback(async (page: number, append: boolean = false, categorySlug?: string) => {
         if (isFetching) return;
 
+
         setIsFetching(true);
 
         try {
@@ -86,8 +87,6 @@ const ProductsNew: React.FC = () => {
 
     // وقتی selectedCategories تغییر کرد
     useEffect(() => {
-        // ریست کردن stateها
-        setProducts([]);
         setCurrentPage(1);
         setHasMore(true);
 
@@ -129,7 +128,7 @@ const ProductsNew: React.FC = () => {
                 observer.unobserve(currentLoader);
             }
         };
-    }, [hasMore, isFetching, currentPage, selectedCategories, fetchProducts]);
+    }, [hasMore, isFetching, currentPage]);
 
     const handleQuickView = (product: Product) => {
         setSelectedProduct(product);

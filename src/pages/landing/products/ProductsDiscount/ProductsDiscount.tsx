@@ -87,8 +87,6 @@ const ProductsDiscount: React.FC = () => {
 
     // وقتی selectedCategories تغییر کرد
     useEffect(() => {
-        // ریست کردن stateها
-        setProducts([]);
         setCurrentPage(1);
         setHasMore(true);
 
@@ -130,7 +128,7 @@ const ProductsDiscount: React.FC = () => {
                 observer.unobserve(currentLoader);
             }
         };
-    }, [hasMore, isFetching, currentPage, selectedCategories]);
+    }, [hasMore, isFetching, currentPage]);
 
     const handleQuickView = (product: Product) => {
         setSelectedProduct(product);
