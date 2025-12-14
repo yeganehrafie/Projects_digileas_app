@@ -4,18 +4,20 @@ import { FiSend } from "react-icons/fi";
 
 interface PropsButton {
     onclick?: () => void;
-    name: string
+    name: string;
+    disabled?: boolean
 }
-const BtnSend: React.FC<PropsButton> = ({ onclick, name }) => {
+const BtnSend: React.FC<PropsButton> = ({ onclick, name, disabled }) => {
 
     return (
         <button
             onClick={onclick}
+            disabled={disabled}
             name={name}
             className="max-w-md w-auto px-4 py-2 text-white text-md font-meduim rounded-sm
             bg-emerald-500 hover:bg-emerald-400 hover:duration-300 flex items-center "
         >
-            <FiSend className="mx-1"/>
+            <FiSend className="mx-1" />
             {name}
         </button>
     );
